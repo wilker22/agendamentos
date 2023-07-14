@@ -3,11 +3,22 @@
 namespace App\Controllers\Super;
 
 use App\Controllers\BaseController;
-use App\Models\UnitModel;
+use App\Libraries\UnitService;
+use CodeIgniter\Config\Factories;
 use CodeIgniter\View\RendererInterface;
 
 class UnitsController extends BaseController
 {
+
+    /** @var UnitService */
+    private UnitService $unitService;
+
+    /** construtor */
+    public function __construct()
+    {
+        $this->unitService = Factories::class(UnitService::class);
+    }
+
     /**
      * Renderiza a view para gerenciar as uniadades
      *
@@ -17,36 +28,29 @@ class UnitsController extends BaseController
     {
         $data = [
             'title' => 'Unidades',
+            'units' => $this->unitService->renderUnits()
         ];
-
-        $units = model(UnitModel::class)->findAll();
-
-        $table = new \CodeIgniter\View\Table();
-
-        $template = [
-            'table_open' => '<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">',
-        ];
-
-        $table->setTemplate($template);
-
-        $table->setHeading('Nome', 'E-mail', 'Telefone', 'Início', 'Fim', 'Criado');
-
-        foreach ($units as $unit) {
-
-            $table->addRow(
-                [
-                    $unit->name,
-                    $unit->email,
-                    $unit->phone,
-                    $unit->starttime,
-                    $unit->endtime,
-                    $unit->created_at,
-                ]
-            );
-        }
-
-        $data['units'] = $table->generate();
 
         return view('Back/Units/index', $data);
+    }
+
+
+    /**
+     * Renderiza a view para editar o registro
+     *
+     * @param integer $id
+     * @return RendererInterface
+     */
+    public function edit(int $id)
+    {
+
+        exit('EDITAR');
+
+        $data = [
+            'title' => 'Editar unidade',
+            'units' => $this->unitService->renderUnits()
+        ];
+
+        return view('Back/Units/edit', $data);
     }
 }
