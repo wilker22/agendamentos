@@ -152,4 +152,22 @@ class UnitsController extends BaseController
 
         return redirect()->route('units')->with('success', 'Sucesso!');
     }
+
+
+    /**
+     * Processa a exclusão do registro na base de dados
+     *
+     * @param integer $id
+     * @return RedirectResponse
+     */
+    public function destroy(int $id)
+    {
+        $this->checkMethod('delete');
+
+        $unit = $this->unitModel->findOrFail($id);
+
+        $this->unitModel->delete($unit->id);
+
+        return redirect()->route('units')->with('success', 'Sucesso!');
+    }
 }

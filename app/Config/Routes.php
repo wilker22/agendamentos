@@ -53,6 +53,7 @@ $routes->group('super', static function ($routes) {
         $routes->post('create', [UnitsController::class, 'create'], ['as' => 'units.create']);
         $routes->put('update/(:num)', [UnitsController::class, 'update/$1'], ['as' => 'units.update']);
         $routes->put('action/(:num)', [UnitsController::class, 'action/$1'], ['as' => 'units.action']); // ativa / desativa um registro
+        $routes->delete('destroy/(:num)', [UnitsController::class, 'destroy/$1'], ['as' => 'units.destroy']);
     });
 });
 

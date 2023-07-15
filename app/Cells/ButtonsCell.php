@@ -35,4 +35,36 @@ class ButtonsCell
 
         return $form;
     }
+
+
+
+    /**
+     * Renderiza um botão com formulário HTML para exclusão do registro.
+     *
+     * @param array $params [
+     *                          'route' => 'units/destroy/1', 
+     *                          'btn_class' => 'btn-danger sua-classe' 
+     *                      ]
+     * @return string
+     */
+    public function destroy(array $params): string
+    {
+
+        $formAttributes = [
+            'class'     => 'd-inline',
+            'onsubmit'  => 'return confirm("Tem certeza da exclusão?");',
+        ];
+
+        $form = form_open($params['route'], attributes: $formAttributes, hidden: ['_method' => 'DELETE']);
+
+        $form .= form_button([
+            'class'     => $params['btn_class'] ?? ' btn btn-sm btn-danger',
+            'type'      => 'submit',
+            'content'   => 'Destruir' // o que será exibido
+        ]);
+
+        $form .= form_close();
+
+        return $form;
+    }
 }

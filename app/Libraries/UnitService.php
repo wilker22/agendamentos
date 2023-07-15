@@ -105,7 +105,14 @@ class UnitService extends MyBaseService
                 'btn_class'   => 'dropdown-item py-2'
             ]
         );
-        $btnActions .= '<a class="dropdown-item" href="#">Action</a>';
+        $btnActions .= view_cell(
+            library: 'ButtonsCell::destroy',
+            params: [
+                'route'       => route_to('units.destroy', $unit->id),
+                'btn_class'   => 'dropdown-item py-2'
+            ]
+        );
+
         $btnActions .= ' </div>
                         </div>';
 
