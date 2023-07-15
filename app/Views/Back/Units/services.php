@@ -32,7 +32,7 @@
 
             <button type="submit" class="btn btn-sm btn-success">Salvar</button><br>
 
-            <button type="buttom" id="btnToogleAll" class="btn btn-sm btn-primary mt-2 badge-primary mb-1">Marcar todos</button>
+            <button type="button" id="btnToogleAll" class="btn btn-sm btn-primary mt-4 mb-4 badge-primary mb-1">Marcar todos</button>
 
             <?php echo $servicesOptions; ?>
 
