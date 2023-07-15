@@ -50,8 +50,9 @@ class UnitsController extends BaseController
     {
 
         $data = [
-            'title' => 'Editar unidade',
-            'unit'  => $this->unitModel->findOrFail($id)
+            'title'         => 'Editar unidade',
+            'unit'          => $unit = $this->unitModel->findOrFail($id),
+            'timesInterval' => $this->unitService->renderTimesInterval($unit->servicetime)
         ];
 
         return view('Back/Units/edit', $data);

@@ -60,7 +60,7 @@
                 <div class="form-group col-md-4">
                     <label for="servicetime">Tempo de cada atendimento</label>
 
-                    /// FAZER O DROPDOWN
+                    <?php echo $timesInterval; ?>
                 </div>
 
 
@@ -90,7 +90,7 @@
             </div>
 
 
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary mt-4">Salvar</button>
 
             <?php echo form_close(); ?>
 

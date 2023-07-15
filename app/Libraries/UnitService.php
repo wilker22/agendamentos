@@ -8,6 +8,17 @@ use App\Models\UnitModel;
 class UnitService extends MyBaseService
 {
 
+    private static array $serviceTimes = [
+        '10 minutes' => '10 minutos',
+        '15 minutes' => '15 minutos',
+        '30 minutes' => '30 minutos',
+        '1 hour'     => 'Uma hora',
+        '2 hour'     => 'Duas horas',
+
+        //....
+        // coloquem intevalos válidos que serão usados pela classe do PHP DateTimeInterval
+    ];
+
     /**
      * Renderiza uma tabela HTML com os resultados
      *
@@ -41,6 +52,28 @@ class UnitService extends MyBaseService
         }
 
         return $this->htmlTable->generate();
+    }
+
+
+    /**
+     * Renderiza um dropdown HTML com as opções de tempo necessário para cada atendimento.
+     *
+     * @param string|null $serviceTime intervalo já associado ao registro, quando for o caso.
+     * @return string
+     */
+    public function renderTimesInterval(?string $serviceTime = null): string
+    {
+
+        $options = [];
+        $options[''] = '--- Escolha ---';
+
+        foreach (self::$serviceTimes as $key => $time) {
+
+            $options[$key] = $time;
+        }
+
+
+        return form_dropdown(data: 'servicetime', options: $options, selected: old('servicetime', $serviceTime), extra: ['class' => 'form-control']);
     }
 
 
