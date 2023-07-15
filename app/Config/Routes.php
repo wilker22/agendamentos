@@ -48,7 +48,9 @@ $routes->group('super', static function ($routes) {
     $routes->group('units', static function ($routes) {
 
         $routes->get('/', [UnitsController::class, 'index'], ['as' => 'units']);
+        $routes->get('new', [UnitsController::class, 'new'], ['as' => 'units.new']);
         $routes->get('edit/(:num)', [UnitsController::class, 'edit/$1'], ['as' => 'units.edit']);
+        $routes->post('create', [UnitsController::class, 'create'], ['as' => 'units.create']);
         $routes->put('update/(:num)', [UnitsController::class, 'update/$1'], ['as' => 'units.update']);
     });
 });

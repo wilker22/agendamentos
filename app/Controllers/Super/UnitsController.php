@@ -3,6 +3,7 @@
 namespace App\Controllers\Super;
 
 use App\Controllers\BaseController;
+use App\Entities\Unit;
 use App\Libraries\UnitService;
 use App\Models\UnitModel;
 use CodeIgniter\Config\Factories;
@@ -38,6 +39,46 @@ class UnitsController extends BaseController
         ];
 
         return view('Back/Units/index', $data);
+    }
+
+
+    /**
+     * Renderiza a view para criar as uniadades
+     *
+     * @return RendererInterface
+     */
+    public function new()
+    {
+        $data = [
+            'title'         => 'Criar unidade',
+            'unit'          => new Unit(),
+            'timesInterval' => $this->unitService->renderTimesInterval()
+        ];
+
+        return view('Back/Units/new', $data);
+    }
+
+
+    /**
+     * Processa a criação do registro na base de dados
+     *
+     * @return RedirectResponse
+     */
+    public function create()
+    {
+        $this->checkMethod('post');
+
+        $unit = new Unit($this->clearRequest());
+
+        if (!$this->unitModel->insert($unit)) {
+
+            return redirect()->back()
+                ->withInput()
+                ->with('danger', 'Verifique os erros e tente novamente')
+                ->with('errorsValidation', $this->unitModel->errors());
+        }
+
+        return redirect()->route('units')->with('success', 'Sucesso!');
     }
 
 

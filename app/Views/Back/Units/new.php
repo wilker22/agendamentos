@@ -26,11 +26,9 @@
         </div>
         <div class="card-body">
 
-            <?php echo form_open(route_to('units.update', $unit->id), hidden: ['_method' => 'PUT']); ?>
-
+            <?php echo form_open(route_to('units.create')); ?>
 
             <?php echo $this->include('Back/Units/_form'); ?>
-
 
             <?php echo form_close(); ?>
 
