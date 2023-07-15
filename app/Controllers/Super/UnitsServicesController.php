@@ -6,6 +6,7 @@ use App\Controllers\BaseController;
 use App\Libraries\UnitServiceService;
 use App\Models\UnitModel;
 use CodeIgniter\Config\Factories;
+use CodeIgniter\HTTP\RedirectResponse;
 use CodeIgniter\View\RendererInterface;
 
 class UnitsServicesController extends BaseController
@@ -41,5 +42,19 @@ class UnitsServicesController extends BaseController
 
 
         return view('Back/Units/services', $data);
+    }
+
+
+    /**
+     * Processa a associação dos serviços com a unidade
+     *
+     * @param integer $unitId
+     * @return RedirectResponse
+     */
+    public function store(int $unitId)
+    {
+        $this->checkMethod('put');
+
+        dd($this->request->getPost());
     }
 }

@@ -28,7 +28,7 @@
         </div>
         <div class="card-body">
 
-            <?php echo form_open('units.services.store', $unit->id, hidden: ['_method' => 'PUT']); ?>
+            <?php echo form_open(route_to('units.services.store', $unit->id), hidden: ['_method' => 'PUT']); ?>
 
             <button type="submit" class="btn btn-sm btn-success">Salvar</button><br>
 
@@ -50,5 +50,18 @@
 
 <?php echo $this->section('js'); ?>
 
+
+<script>
+    document.getElementById('btnToogleAll').addEventListener('click', () => {
+
+
+        const services = document.getElementsByName('services[]');
+
+        services.forEach(element => {
+            element.checked = !element.checked;
+        });
+
+    });
+</script>
 
 <?php echo $this->endSection(); ?>

@@ -34,7 +34,7 @@ class UnitServiceService extends MyBaseService
 
             $checkbox = '<div class="custom-control custom-checkbox">';
             $checkbox .= "<input type='checkbox' name='services[]' value='{$service->id}' class='custom-control-input' id='service-{$service->id}'>";
-            $checkbox .= "<label class='custom-control-label' for='service-{$service->id}'>Registro ativo</label>";
+            $checkbox .= "<label class='custom-control-label' for='service-{$service->id}'>{$service->name}</label>";
             $checkbox .= '</div>';
 
             $ul .= "<li class='list-group-item'>{$checkbox}</li>";
