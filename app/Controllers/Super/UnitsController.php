@@ -4,6 +4,7 @@ namespace App\Controllers\Super;
 
 use App\Controllers\BaseController;
 use App\Libraries\UnitService;
+use App\Models\UnitModel;
 use CodeIgniter\Config\Factories;
 use CodeIgniter\View\RendererInterface;
 
@@ -13,10 +14,14 @@ class UnitsController extends BaseController
     /** @var UnitService */
     private UnitService $unitService;
 
+    /** @var UnitModel */
+    private UnitModel $unitModel;
+
     /** construtor */
     public function __construct()
     {
         $this->unitService = Factories::class(UnitService::class);
+        $this->unitModel = model(UnitModel::class);
     }
 
     /**
@@ -44,7 +49,9 @@ class UnitsController extends BaseController
     public function edit(int $id)
     {
 
-        exit('EDITAR');
+        $unit = $this->unitModel->findOrFail($id);
+
+        dd($unit);
 
         $data = [
             'title' => 'Editar unidade',
