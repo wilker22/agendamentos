@@ -6,6 +6,7 @@ use App\Controllers\BaseController;
 use App\Libraries\UnitService;
 use App\Models\UnitModel;
 use CodeIgniter\Config\Factories;
+use CodeIgniter\HTTP\RedirectResponse;
 use CodeIgniter\View\RendererInterface;
 
 class UnitsController extends BaseController
@@ -56,5 +57,38 @@ class UnitsController extends BaseController
         ];
 
         return view('Back/Units/edit', $data);
+    }
+
+
+    /**
+     * Processa a atualização do registro na base de dados
+     *
+     * @param integer $id
+     * @return RedirectResponse
+     */
+    public function update(int $id)
+    {
+        $this->checkMethod('put');
+
+        $unit = $this->unitModel->findOrFail($id);
+
+        $unit->fill($this->clearRequest());
+
+        if (!$unit->hasChanged()) {
+
+            return redirect()->back()->with('info', 'Não há dados para atualizar');
+        }
+
+        $success = $this->unitModel->save($unit);
+
+        dd($this->unitModel->errors());
+
+        if (!$success) {
+
+            return redirect()->back()
+                ->withInput()
+                ->with('danger', 'Verifique os erros e tente novamente')
+                ->with('errorsValidation', $this->unitModel->errors());
+        }
     }
 }

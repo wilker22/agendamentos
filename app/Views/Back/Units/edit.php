@@ -47,13 +47,13 @@
                 </div>
 
                 <div class="form-group col-md-4">
-                    <label for="startime">Início expediente</label>
-                    <input type="time" class="form-control" name="startime" value="<?php echo old('startime', $unit->startime); ?>" id="startime" aria-describedby="startimeHelp" placeholder="Início expediente">
+                    <label for="starttime">Início expediente</label>
+                    <input type="time" class="form-control" name="starttime" value="<?php echo old('starttime', $unit->starttime); ?>" id="starttime" aria-describedby="starttimeHelp" placeholder="Início expediente">
                 </div>
 
                 <div class="form-group col-md-4">
                     <label for="endtime">Final expediente</label>
-                    <input type="time" class="form-control" name="endtime" value="<?php echo old('endtime', $unit->endtime); ?>" id="startime" aria-describedby="endtimeHelp" placeholder="Final expediente">
+                    <input type="time" class="form-control" name="endtime" value="<?php echo old('endtime', $unit->endtime); ?>" id="endtime" aria-describedby="endtimeHelp" placeholder="Final expediente">
                 </div>
 
 

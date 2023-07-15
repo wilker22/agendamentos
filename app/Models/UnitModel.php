@@ -36,8 +36,27 @@ class UnitModel extends Model
 
 
     // Validation
-    protected $validationRules      = [];
-    protected $validationMessages   = [];
+    protected $validationRules      = [
+        'id'            => 'permit_empty|is_natural_no_zero',
+        'name'          => 'required|max_length[69]|is_unique[units.name,id,{id}]',
+        'phone'         => 'required|exact_length[14]|is_unique[units.phone,id,{id}]',
+        'email'         => 'required|valid_email|max_length[99]|is_unique[units.email,id,{id}]',
+        'coordinator'   => 'required|max_length[69]',
+        'address'       => 'required|max_length[128]',
+        'starttime'     => 'required',
+        'endtime'       => 'required',
+        'servicetime'   => 'required',
+    ];
+
+
+    protected $validationMessages   = [
+        'name' => [
+            'required' => 'Obrigatório',
+            'max_length' => 'Máximo 69 caractéres',
+            'is_unique' => 'Já existe',
+        ],
+    ];
+
     protected $skipValidation       = false;
     protected $cleanValidationRules = true;
 
