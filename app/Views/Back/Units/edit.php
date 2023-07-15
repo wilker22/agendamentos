@@ -28,15 +28,68 @@
 
             <?php echo form_open(route_to('units.update', $unit->id), hidden: ['_method' => 'PUT']); ?>
 
-            <div class="form-group">
-                <label for="name">Nome</label>
-                <input type="text" class="form-control" name="name" value="<?php echo old('name', $unit->name); ?>" id="name" aria-describedby="nameHelp" placeholder="Nome">
+            <div class="row">
+
+                <div class="form-group col-md-4">
+                    <label for="name">Nome</label>
+                    <input type="text" class="form-control" name="name" value="<?php echo old('name', $unit->name); ?>" id="name" aria-describedby="nameHelp" placeholder="Nome">
+                </div>
+
+
+                <div class="form-group col-md-4">
+                    <label for="phone">Telefone</label>
+                    <input type="tel" class="form-control" name="phone" value="<?php echo old('phone', $unit->phone); ?>" id="phone" aria-describedby="phoneHelp" placeholder="Telefone">
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label for="coordinator">Telefone</label>
+                    <input type="text" class="form-control" name="coordinator" value="<?php echo old('coordinator', $unit->coordinator); ?>" id="coordinator" aria-describedby="coordinatorHelp" placeholder="Coordenador">
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label for="startime">Início expediente</label>
+                    <input type="time" class="form-control" name="startime" value="<?php echo old('startime', $unit->startime); ?>" id="startime" aria-describedby="startimeHelp" placeholder="Início expediente">
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label for="endtime">Final expediente</label>
+                    <input type="time" class="form-control" name="endtime" value="<?php echo old('endtime', $unit->endtime); ?>" id="startime" aria-describedby="endtimeHelp" placeholder="Final expediente">
+                </div>
+
+
+                <div class="form-group col-md-4">
+                    <label for="servicetime">Tempo de cada atendimento</label>
+
+                    /// FAZER O DROPDOWN
+                </div>
+
+
+                <div class="form-group col-md-4">
+                    <label for="email">E-mail</label>
+                    <input type="email" class="form-control" name="email" value="<?php echo old('email', $unit->email); ?>" id="email" aria-describedby="emailHelp" placeholder="E-mail">
+                </div>
+
+
+                <div class="form-group col-md-4">
+                    <label for="address">Endereço</label>
+                    <input type="text" class="form-control" name="address" value="<?php echo old('address', $unit->address); ?>" id="address" aria-describedby="addressHelp" placeholder="Endereço">
+                </div>
+
+
+                <div class="col-md-12 mb-3 mt-4">
+
+                    <div class="custom-control custom-checkbox">
+                        <?php echo form_hidden('active', 0); ?>
+                        <input type="checkbox" name="active" value="1" <?php if ($unit->active) : ?> checked <?php endif; ?> class="custom-control-input" id="active">
+                        <label class="custom-control-label" for="active">Registro ativo</label>
+
+                    </div>
+
+                </div>
+
             </div>
 
-            <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                <label class="form-check-label" for="exampleCheck1">Check me out</label>
-            </div>
+
             <button type="submit" class="btn btn-primary">Submit</button>
 
             <?php echo form_close(); ?>
