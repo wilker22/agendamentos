@@ -2,27 +2,19 @@
 
 namespace App\Models;
 
-use App\Entities\Unit;
+use App\Entities\Service;
 
-class UnitModel extends MyBaseModel
+class ServiceModel extends MyBaseModel
 {
     protected $DBGroup          = 'default';
-    protected $table            = 'units';
+    protected $table            = 'services';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
-    protected $returnType       = Unit::class;
+    protected $returnType       = Service::class;
     protected $useSoftDeletes   = false; // vamos excluir o registro
     protected $protectFields    = true;
     protected $allowedFields    = [
         'name',
-        'email',
-        'phone',
-        'coordinator',
-        'address',
-        'services',
-        'starttime',
-        'endtime',
-        'servicetime',
         'active',
     ];
 
@@ -37,13 +29,6 @@ class UnitModel extends MyBaseModel
     protected $validationRules      = [
         'id'            => 'permit_empty|is_natural_no_zero',
         'name'          => 'required|max_length[69]|is_unique[units.name,id,{id}]',
-        'phone'         => 'required|exact_length[14]|is_unique[units.phone,id,{id}]',
-        'email'         => 'required|valid_email|max_length[99]|is_unique[units.email,id,{id}]',
-        'coordinator'   => 'required|max_length[69]',
-        'address'       => 'required|max_length[128]',
-        'starttime'     => 'required',
-        'endtime'       => 'required',
-        'servicetime'   => 'required',
     ];
 
 

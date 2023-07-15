@@ -3,6 +3,7 @@
 namespace Config;
 
 use App\Controllers\Super\HomeController;
+use App\Controllers\Super\ServicesController;
 use App\Controllers\Super\UnitsController;
 
 // Create a new instance of our RouteCollection class.
@@ -54,6 +55,19 @@ $routes->group('super', static function ($routes) {
         $routes->put('update/(:num)', [UnitsController::class, 'update/$1'], ['as' => 'units.update']);
         $routes->put('action/(:num)', [UnitsController::class, 'action/$1'], ['as' => 'units.action']); // ativa / desativa um registro
         $routes->delete('destroy/(:num)', [UnitsController::class, 'destroy/$1'], ['as' => 'units.destroy']);
+    });
+
+
+    // rotas de serviços
+    $routes->group('services', static function ($routes) {
+
+        $routes->get('/', [ServicesController::class, 'index'], ['as' => 'services']);
+        $routes->get('new', [ServicesController::class, 'new'], ['as' => 'services.new']);
+        $routes->get('edit/(:num)', [ServicesController::class, 'edit/$1'], ['as' => 'services.edit']);
+        $routes->post('create', [ServicesController::class, 'create'], ['as' => 'services.create']);
+        $routes->put('update/(:num)', [ServicesController::class, 'update/$1'], ['as' => 'services.update']);
+        $routes->put('action/(:num)', [ServicesController::class, 'action/$1'], ['as' => 'services.action']); // ativa / desativa um registro
+        $routes->delete('destroy/(:num)', [ServicesController::class, 'destroy/$1'], ['as' => 'services.destroy']);
     });
 });
 
