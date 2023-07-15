@@ -46,4 +46,35 @@ class UnitServiceService extends MyBaseService
         // retornamo a lista de opções
         return $ul;
     }
+
+
+    /**
+     * Renderiza a lista HTML não ordenada dos serviços associados à unidade, quando for o caso.
+     *
+     * @param array|null $existingServicesIds
+     * @return string
+     */
+    public function renderUnitServices(?array $existingServicesIds = null): string
+    {
+        if ($existingServicesIds === null || empty($existingServicesIds)) {
+
+            return self::TEXT_FOR_NO_DATA;
+        }
+
+        $services = model(ServiceModel::class)->whereIn('id', $existingServicesIds)->orderBy('name', 'ASC')->findAll();
+
+        if (empty($services)) {
+
+            return self::TEXT_FOR_NO_DATA;
+        }
+
+        $list = [];
+
+        foreach ($services as $service) {
+
+            $list[] = "{$service->name} - {$service->status()}";
+        }
+
+        return ul($list);
+    }
 }

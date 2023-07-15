@@ -4,6 +4,7 @@ namespace App\Libraries;
 
 use App\Entities\Unit;
 use App\Models\UnitModel;
+use CodeIgniter\Config\Factories;
 
 class UnitService extends MyBaseService
 {
@@ -34,7 +35,9 @@ class UnitService extends MyBaseService
             return self::TEXT_FOR_NO_DATA;
         }
 
-        $this->htmlTable->setHeading('Ações', 'Nome', 'E-mail', 'Telefone', 'Início', 'Fim', 'Situação', 'Criado');
+        $this->htmlTable->setHeading('Ações', 'Nome', 'E-mail', 'Telefone', 'Serviços', 'Situação', 'Criado');
+
+        $unitServiceService = Factories::class(UnitServiceService::class);
 
         foreach ($units as $unit) {
 
@@ -44,8 +47,7 @@ class UnitService extends MyBaseService
                     $unit->name,
                     $unit->email,
                     $unit->phone,
-                    $unit->starttime,
-                    $unit->endtime,
+                    $unitServiceService->renderUnitServices($unit->services),
                     $unit->status(),
                     $unit->createdAt(),
                 ]
