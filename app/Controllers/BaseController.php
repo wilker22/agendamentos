@@ -55,4 +55,23 @@ abstract class BaseController extends Controller
 
         // E.g.: $this->session = \Config\Services::session();
     }
+
+
+    /**
+     * Valida se a requisição é realmente do tipo informado: post/put/delete
+     *
+     * @param string $method
+     * @return boolean
+     */
+    protected function checkMethod(string $method): bool
+    {
+        $method = strtolower($method);
+
+        if (!$this->request->is($method)) {
+
+            return $this->response->setStatusCode(405)->setBody('Method Not Allowed');
+        }
+
+        return true;
+    }
 }

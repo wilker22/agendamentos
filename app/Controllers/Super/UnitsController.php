@@ -49,13 +49,9 @@ class UnitsController extends BaseController
     public function edit(int $id)
     {
 
-        $unit = $this->unitModel->findOrFail($id);
-
-        dd($unit);
-
         $data = [
             'title' => 'Editar unidade',
-            'units' => $this->unitService->renderUnits()
+            'unit'  => $this->unitModel->findOrFail($id)
         ];
 
         return view('Back/Units/edit', $data);
