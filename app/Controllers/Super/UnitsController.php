@@ -81,8 +81,6 @@ class UnitsController extends BaseController
 
         $success = $this->unitModel->save($unit);
 
-        dd($this->unitModel->errors());
-
         if (!$success) {
 
             return redirect()->back()
@@ -90,5 +88,8 @@ class UnitsController extends BaseController
                 ->with('danger', 'Verifique os erros e tente novamente')
                 ->with('errorsValidation', $this->unitModel->errors());
         }
+
+
+        return redirect()->route('units')->with('success', 'Sucesso!');
     }
 }

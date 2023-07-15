@@ -336,6 +336,7 @@
                 </nav>
                 <!-- End of Topbar -->
 
+                <?php echo $this->include('Back/Layout/_messages'); ?>
 
                 <!-- Aqui é o espaço reservado para apresentar o conteúdo específico das views que extendendem esse template -->
                 <?php echo $this->renderSection('content'); ?>
