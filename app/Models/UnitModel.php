@@ -60,6 +60,8 @@ class UnitModel extends MyBaseModel
 
     // Callbacks
     protected $allowCallbacks = true;
-    protected $beforeInsert   = ['escapeData'];
-    protected $beforeUpdate   = ['escapeData'];
+    protected $beforeInsert   = [];
+    protected $beforeUpdate   = [];
+    // protected $beforeInsert   = ['escapeData'];
+    // protected $beforeUpdate   = ['escapeData'];
 }

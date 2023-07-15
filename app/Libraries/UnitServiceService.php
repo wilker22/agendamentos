@@ -33,7 +33,7 @@ class UnitServiceService extends MyBaseService
             $checked = in_array($service->id, $existingServicesIds ?? []) ? 'checked' : '';
 
             $checkbox = '<div class="custom-control custom-checkbox">';
-            $checkbox .= "<input type='checkbox' name='services[]' value='{$service->id}' class='custom-control-input' id='service-{$service->id}'>";
+            $checkbox .= "<input type='checkbox' {$checked} name='services[]' value='{$service->id}' class='custom-control-input' id='service-{$service->id}'>";
             $checkbox .= "<label class='custom-control-label' for='service-{$service->id}'>{$service->name}</label>";
             $checkbox .= '</div>';
 

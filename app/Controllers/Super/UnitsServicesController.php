@@ -34,10 +34,11 @@ class UnitsServicesController extends BaseController
      */
     public function services(int $unitId)
     {
+
         $data = [
             'title'           => 'Gerenciar serviços da unidade',
             'unit'            => $unit = $this->unitModel->findOrFail($unitId),
-            'servicesOptions' => $this->unitServiceService->renderServicesOptions(),
+            'servicesOptions' => $this->unitServiceService->renderServicesOptions($unit->services),
         ];
 
 
@@ -55,6 +56,28 @@ class UnitsServicesController extends BaseController
     {
         $this->checkMethod('put');
 
-        dd($this->request->getPost());
+        $unit = $this->unitModel->findOrFail($unitId);
+
+        $postServices = $this->request->getPost('services');
+
+        $unit->services = $postServices ?? null;
+
+        if (!$unit->hasChanged()) {
+
+            return redirect()->back()->with('info', 'Não há dados para atualizar');
+        }
+
+        $success = $this->unitModel->save($unit);
+
+        if (!$success) {
+
+            return redirect()->back()
+                ->withInput()
+                ->with('danger', 'Verifique os erros e tente novamente')
+                ->with('errorsValidation', $this->unitModel->errors());
+        }
+
+
+        return redirect()->back()->with('success', 'Sucesso!');
     }
 }
