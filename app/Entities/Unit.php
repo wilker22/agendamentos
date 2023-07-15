@@ -2,19 +2,6 @@
 
 namespace App\Entities;
 
-use CodeIgniter\Entity\Entity;
-
-class Unit extends Entity
+class Unit extends MyBaseEntity
 {
-    protected $datamap = [];
-    protected $dates   = ['created_at', 'updated_at',];
-    protected $casts   = [];
-
-
-
-    public function lucio()
-    {
-
-        return 'Lucio Antonio de Souza';
-    }
 }

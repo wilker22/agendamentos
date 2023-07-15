@@ -97,6 +97,8 @@ class UnitsController extends BaseController
             'timesInterval' => $this->unitService->renderTimesInterval($unit->servicetime)
         ];
 
+        dd($unit);
+
         return view('Back/Units/edit', $data);
     }
 
