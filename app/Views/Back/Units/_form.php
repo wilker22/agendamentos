@@ -9,7 +9,7 @@
 
     <div class="form-group col-md-4">
         <label for="phone">Telefone</label>
-        <input type="tel" class="form-control" name="phone" value="<?php echo old('phone', $unit->phone); ?>" id="phone" aria-describedby="phoneHelp" placeholder="Telefone">
+        <input type="tel" class="form-control phone_with_ddd" name="phone" value="<?php echo old('phone', $unit->phone); ?>" id="phone" aria-describedby="phoneHelp" placeholder="Telefone">
         <?php echo show_error_input('phone'); ?>
     </div>
 
