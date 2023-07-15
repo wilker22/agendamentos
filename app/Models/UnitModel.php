@@ -60,8 +60,38 @@ class UnitModel extends MyBaseModel
 
     // Callbacks
     protected $allowCallbacks = true;
-    protected $beforeInsert   = [];
-    protected $beforeUpdate   = [];
-    // protected $beforeInsert   = ['escapeData'];
-    // protected $beforeUpdate   = ['escapeData'];
+    protected $beforeInsert   = ['escapeCustomData'];
+    protected $beforeUpdate   = ['escapeCustomData'];
+
+
+    /**
+     * Escapa os dados de forma controlada, pois temos uma coluna 'services' que é um JSON.
+     *
+     * @param array $data
+     * @return array
+     */
+    protected function escapeCustomData(array $data): array
+    {
+
+        if (!isset($data['data'])) {
+
+            return $data;
+        }
+
+        foreach ($this->allowedFields as $attibute) {
+
+            if (isset($data['data'][$attibute])) {
+
+                if ($attibute === 'services') {
+
+                    continue;
+                }
+
+                $data['data'][$attibute] = esc($data['data'][$attibute]);
+            }
+        }
+
+
+        return $data;
+    }
 }
