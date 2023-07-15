@@ -28,7 +28,7 @@ class ServiceModel extends MyBaseModel
     // Validation
     protected $validationRules      = [
         'id'            => 'permit_empty|is_natural_no_zero',
-        'name'          => 'required|max_length[69]|is_unique[units.name,id,{id}]',
+        'name'          => 'required|max_length[69]|is_unique[services.name,id,{id}]',
     ];
 
 

@@ -26,9 +26,9 @@
         </div>
         <div class="card-body">
 
-            <?php echo form_open(route_to('units.create')); ?>
+            <?php echo form_open(route_to('services.create')); ?>
 
-            <?php echo $this->include('Back/Units/_form'); ?>
+            <?php echo $this->include('Back/Services/_form'); ?>
 
             <?php echo form_close(); ?>
 
@@ -45,7 +45,6 @@
 
 <?php echo $this->section('js'); ?>
 
-<script src="<?php echo base_url('back/mask/jquery.mask.min.js'); ?>"></script>
-<script src="<?php echo base_url('back/mask/app.js'); ?>"></script>
+
 
 <?php echo $this->endSection(); ?>

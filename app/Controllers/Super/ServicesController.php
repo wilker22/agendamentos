@@ -43,16 +43,15 @@ class ServicesController extends BaseController
 
 
     /**
-     * Renderiza a view para criar as uniadades
+     * Renderiza a view para criar serviços
      *
      * @return RendererInterface
      */
     public function new()
     {
         $data = [
-            'title'         => 'Criar unidade',
-            'unit'          => new Unit(),
-            'timesInterval' => $this->serviceService->renderTimesInterval()
+            'title'   => 'Criar serviço',
+            'service' => new Service(),
         ];
 
         return view('Back/Services/new', $data);
@@ -68,17 +67,17 @@ class ServicesController extends BaseController
     {
         $this->checkMethod('post');
 
-        $unit = new Unit($this->clearRequest());
+        $service = new Service($this->clearRequest());
 
-        if (!$this->unitModel->insert($unit)) {
+        if (!$this->serviceModel->insert($service)) {
 
             return redirect()->back()
                 ->withInput()
                 ->with('danger', 'Verifique os erros e tente novamente')
-                ->with('errorsValidation', $this->unitModel->errors());
+                ->with('errorsValidation', $this->serviceModel->errors());
         }
 
-        return redirect()->route('units')->with('success', 'Sucesso!');
+        return redirect()->route('services')->with('success', 'Sucesso!');
     }
 
 
@@ -92,9 +91,8 @@ class ServicesController extends BaseController
     {
 
         $data = [
-            'title'         => 'Editar unidade',
-            'unit'          => $unit = $this->unitModel->findOrFail($id),
-            'timesInterval' => $this->serviceService->renderTimesInterval($unit->servicetime)
+            'title'    => 'Editar serviço',
+            'service'  => $this->serviceModel->findOrFail($id),
         ];
 
         return view('Back/Services/edit', $data);
@@ -111,27 +109,27 @@ class ServicesController extends BaseController
     {
         $this->checkMethod('put');
 
-        $unit = $this->unitModel->findOrFail($id);
+        $service = $this->serviceModel->findOrFail($id);
 
-        $unit->fill($this->clearRequest());
+        $service->fill($this->clearRequest());
 
-        if (!$unit->hasChanged()) {
+        if (!$service->hasChanged()) {
 
             return redirect()->back()->with('info', 'Não há dados para atualizar');
         }
 
-        $success = $this->unitModel->save($unit);
+        $success = $this->serviceModel->save($service);
 
         if (!$success) {
 
             return redirect()->back()
                 ->withInput()
                 ->with('danger', 'Verifique os erros e tente novamente')
-                ->with('errorsValidation', $this->unitModel->errors());
+                ->with('errorsValidation', $this->serviceModel->errors());
         }
 
 
-        return redirect()->route('units')->with('success', 'Sucesso!');
+        return redirect()->route('services')->with('success', 'Sucesso!');
     }
 
 
@@ -145,12 +143,12 @@ class ServicesController extends BaseController
     {
         $this->checkMethod('put');
 
-        $unit = $this->unitModel->findOrFail($id);
-        $unit->setAction();
+        $service = $this->serviceModel->findOrFail($id);
+        $service->setAction();
 
-        $this->unitModel->save($unit);
+        $this->serviceModel->save($service);
 
-        return redirect()->route('units')->with('success', 'Sucesso!');
+        return redirect()->route('services')->with('success', 'Sucesso!');
     }
 
 
@@ -164,10 +162,10 @@ class ServicesController extends BaseController
     {
         $this->checkMethod('delete');
 
-        $unit = $this->unitModel->findOrFail($id);
+        $service = $this->serviceModel->findOrFail($id);
 
-        $this->unitModel->delete($unit->id);
+        $this->serviceModel->delete($service->id);
 
-        return redirect()->route('units')->with('success', 'Sucesso!');
+        return redirect()->route('services')->with('success', 'Sucesso!');
     }
 }
