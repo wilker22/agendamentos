@@ -34,7 +34,7 @@ class UnitService extends MyBaseService
             return self::TEXT_FOR_NO_DATA;
         }
 
-        $this->htmlTable->setHeading('Ações', 'Nome', 'E-mail', 'Telefone', 'Início', 'Fim', 'Criado');
+        $this->htmlTable->setHeading('Ações', 'Nome', 'E-mail', 'Telefone', 'Início', 'Fim', 'Situação', 'Criado');
 
         foreach ($units as $unit) {
 
@@ -46,6 +46,7 @@ class UnitService extends MyBaseService
                     $unit->phone,
                     $unit->starttime,
                     $unit->endtime,
+                    $unit->status(),
                     $unit->created_at,
                 ]
             );
@@ -95,7 +96,15 @@ class UnitService extends MyBaseService
                         </button>';
         $btnActions .= '<div class="dropdown-menu">';
         $btnActions .= anchor(route_to('units.edit', $unit->id), 'Editar', ['class' => 'dropdown-item']);
-        $btnActions .= '<a class="dropdown-item" href="#">Action</a>';
+        $btnActions .= view_cell(
+            library: 'ButtonsCell::action',
+            params: [
+                'route'       => route_to('units.action', $unit->id),
+                'text_action' => $unit->textToAction(),
+                'activated'   => $unit->isActivated(),
+                'btn_class'   => 'dropdown-item py-2'
+            ]
+        );
         $btnActions .= '<a class="dropdown-item" href="#">Action</a>';
         $btnActions .= ' </div>
                         </div>';

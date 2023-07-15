@@ -133,4 +133,23 @@ class UnitsController extends BaseController
 
         return redirect()->route('units')->with('success', 'Sucesso!');
     }
+
+
+    /**
+     * Processa a ativação ou desativação do registro na base de dados
+     *
+     * @param integer $id
+     * @return RedirectResponse
+     */
+    public function action(int $id)
+    {
+        $this->checkMethod('put');
+
+        $unit = $this->unitModel->findOrFail($id);
+        $unit->setAction();
+
+        $this->unitModel->save($unit);
+
+        return redirect()->route('units')->with('success', 'Sucesso!');
+    }
 }
