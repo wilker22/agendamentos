@@ -134,7 +134,7 @@
 
         <div class="col-m-12">
 
-            <a href="<?php echo route_to('schedule.new'); ?>" class="btn btn-lg btn-primary">Criar agendamento</a>
+            <a href="<?php echo route_to('schedules.new'); ?>" class="btn btn-lg btn-primary">Criar agendamento</a>
 
         </div>
 

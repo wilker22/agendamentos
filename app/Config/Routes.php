@@ -3,6 +3,7 @@
 namespace Config;
 
 use App\Controllers\HomeController as WebController;
+use App\Controllers\SchedulesController;
 use App\Controllers\Super\HomeController;
 use App\Controllers\Super\ServicesController;
 use App\Controllers\Super\UnitsController;
@@ -76,6 +77,14 @@ $routes->group('super', static function ($routes) {
         $routes->put('action/(:num)', [ServicesController::class, 'action/$1'], ['as' => 'services.action']); // ativa / desativa um registro
         $routes->delete('destroy/(:num)', [ServicesController::class, 'destroy/$1'], ['as' => 'services.destroy']);
     });
+});
+
+
+
+// rotas de agendamentos do user logado
+$routes->group('schedules', static function ($routes) {
+
+    $routes->get('/', [SchedulesController::class, 'index'], ['as' => 'schedules.new']);
 });
 
 
