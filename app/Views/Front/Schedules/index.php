@@ -80,7 +80,13 @@
 
 
     const mainBoxServices = document.getElementById('mainBoxServices');
+
+    // preview do que está sendo escolhido
     const chosenUnitText = document.getElementById('chosenUnitText');
+    const chosenServiceText = document.getElementById('chosenServiceText');
+    const chosenMonthText = document.getElementById('chosenMonthText');
+    const chosenDayText = document.getElementById('chosenDayText');
+    const chosenHourText = document.getElementById('chosenHourText');
 
 
 
@@ -105,12 +111,48 @@
             // atribuo à variável global o valor da unidade clicada
             unitId = element.value;
 
+            if (!unitId) {
+
+                alert('Erro ao determinar a Unidade escolhida');
+                return;
+            }
+
             chosenUnitText.innerText = element.getAttribute('data-unit');
+            chosenServiceText.innerText = '';
+            chosenMonthText.innerText = '';
+            chosenDayText.innerText = '';
+            chosenHourText.innerText = '';
+
+
+            getServices();
 
         });
 
 
     });
+
+
+    // recupera os serviços da unidade
+    const getServices = async () => {
+
+        //BOX ERRORS CRIAR DEPOIS
+
+        let url = URL_GET_SERVICES + '?' + setParameters({
+            unit_id: unitId
+        });
+
+
+        console.log(url);
+
+
+
+    };
+
+
+    const setParameters = (object) => {
+
+        return (new URLSearchParams(object)).toString();
+    }
 </script>
 
 <?php echo $this->endSection(); ?>
