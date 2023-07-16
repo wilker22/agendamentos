@@ -165,6 +165,7 @@
 <script>
     const URL_GET_SERVICES = '<?php echo route_to('get.unit.services'); ?>';
     const URL_GET_CALENDAR = '<?php echo route_to('get.calendar'); ?>';
+    const URL_GET_HOURS = '<?php echo route_to('get.hours'); ?>';
 
     const boxErrors = document.getElementById('boxErrors');
 
@@ -351,6 +352,49 @@
 
         // colamos na div o calendário criado
         boxCalendar.innerHTML = data.calendar;
+
+
+        // agora recupero os elementos que tenham a classe '.chosenDay', 
+        // ou seja os dias que são buttons
+        const buttonsChosenDay = document.querySelectorAll('.chosenDay');
+
+
+        // percorro todos os botões
+        buttonsChosenDay.forEach(element => {
+
+            // e fico 'escutando' o click no elemento
+            // e para cada click recupero o valor de 'data-day'
+            element.addEventListener('click', (event) => {
+
+
+                // limpo o preview da hora
+                chosenDayText.innerText = '';
+
+
+                // redefino para null para garantir
+                chosenHour = null;
+
+                /**
+                 * @todo criar função para remover a classe do botões clicados
+                 */
+
+                event.target.classList.add('btn-calendar-day-chosen');
+
+
+                // armazeno na variável global
+                chosenDay = event.target.dataset.day;
+
+
+                // dia escolhido no preview
+                chosenDayText.innerText = chosenDay;
+
+
+                getHours();
+
+            });
+
+
+        });
 
     }
 </script>

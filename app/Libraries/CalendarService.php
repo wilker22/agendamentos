@@ -237,7 +237,8 @@ class CalendarService
             $attributes['disabled'] = true;
         } else {
 
-            $attributes['class'] = "chosenDay {$attributes['class']}";
+            $attributes['class'] = "chosenDay {$attributes['class']}"; // usados no front
+            $attributes['data-day'] = $day; // usados no front
         }
 
 
