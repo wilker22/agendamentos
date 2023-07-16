@@ -21,6 +21,18 @@
     <h1 class="mt-5"><?php echo $title; ?></h1>
 
 
+    <div class="row">
+
+        <div class="col-md-12">
+
+            <p class="lead">Escolha uma Unidade</p>
+
+            <?php echo $units; ?>
+
+        </div>
+
+    </div>
+
 </div>
 
 

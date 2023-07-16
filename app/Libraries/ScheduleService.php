@@ -36,18 +36,13 @@ class ScheduleService
 
         foreach ($units as $unit) {
 
-            $checkbox = '<div class="form-check mb-2">';
-            $checkbox .= "<input type='checkbox' {$checked} name='services[]' value='{$service->id}' class='custom-control-input' id='service-{$service->id}'>";
-            $checkbox .= "<label class='custom-control-label' for='service-{$service->id}'>{$service->name}</label>";
-            $checkbox .= '</div>';
-
-            $ul .= "<li class='list-group-item'>{$checkbox}</li>";
+            $radios .= '<div class="form-check mb-2">';
+            $radios .= "<input type='radio' name='unit_id' data-unit='{$unit->name} \nEndereço: {$unit->address}' value='{$unit->id}' class='form-check-input' id='radio-unit-{$unit->id}'>";
+            $radios .= "<label class='form-check-label' for='radio-unit-{$unit->id}'>{$unit->name}<br>{$unit->address}</label>";
+            $radios .= '</div>';
         }
 
-
-
-
-        // retornamo a lista de opções
-        return $ul;
+        // retornamos
+        return $radios;
     }
 }
