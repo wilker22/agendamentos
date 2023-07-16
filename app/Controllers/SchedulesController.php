@@ -43,8 +43,12 @@ class SchedulesController extends BaseController
 
             $this->checkMethod('ajax');
 
+            $unitId = (int) $this->request->getGet('unit_id');
+
+            $services = $this->scheduleService->renderUnitServices(unitId: $unitId);
+
             return $this->response->setJSON([
-                'services' => 'Serviços da Unidade'
+                'services' => $services
             ]);
         } catch (\Throwable $th) {
 
