@@ -59,7 +59,7 @@ abstract class BaseController extends Controller
 
 
     /**
-     * Valida se a requisição é realmente do tipo informado: post/put/delete
+     * Valida se a requisição é realmente do tipo informado: post/put/delete/ajax
      *
      * @param string $method
      * @throws PageNotFoundException

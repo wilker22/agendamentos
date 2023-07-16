@@ -142,17 +142,17 @@
         });
 
 
-        console.log(url);
+        const response = await fetch(url, {
+            method: 'get',
+            headers: setHeadersRequest()
+        });
+
+
+        console.log(response);
 
 
 
     };
-
-
-    const setParameters = (object) => {
-
-        return (new URLSearchParams(object)).toString();
-    }
 </script>
 
 <?php echo $this->endSection(); ?>

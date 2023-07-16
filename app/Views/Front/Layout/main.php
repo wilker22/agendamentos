@@ -98,6 +98,29 @@
 
     <?php echo $this->renderSection('js'); ?>
 
+
+    <script>
+        const setParameters = (object) => {
+
+            return (new URLSearchParams(object)).toString();
+        }
+
+        const setHeadersRequest = () => {
+
+            return {
+                "Content-Type": "application/json",
+                "X-Requested-With": "XMLHttpRequest"
+            }
+        }
+
+        const showErrorMessage = (message) => {
+
+            boxErrors.innerHTML = '';
+
+            return `<div class="alert alert-danger">${message}</div>`;
+        }
+    </script>
+
 </body>
 
 </html>
