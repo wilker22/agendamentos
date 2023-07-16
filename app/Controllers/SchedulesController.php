@@ -118,4 +118,29 @@ class SchedulesController extends BaseController
             $this->response->setStatusCode(500);
         }
     }
+
+
+    /**
+     * Tenta criar o agendamento
+     *
+     * @return ResponseInterface
+     */
+    public function createSchedule()
+    {
+
+        try {
+
+            $this->checkMethod('ajax');
+
+            return $this->response->setJSON([
+                'hours' => Factories::class(UnitAvaiableHoursService::class)->renderHours($this->request->getGet())
+            ]);
+        } catch (\Throwable $th) {
+
+            log_message('error', '[ERROR] {exception}', ['exception' => $th]);
+
+            $this->response->setStatusCode(500);
+        }
+    }
+}
 }

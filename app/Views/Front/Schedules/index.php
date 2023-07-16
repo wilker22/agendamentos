@@ -75,6 +75,22 @@
 
         <div class="col-md-8">
 
+            <div class="mt-3">
+
+                <?php if (session()->has('success')) : ?>
+
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <?php echo session('success'); ?>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                <?php endif; ?>
+
+
+            </div>
+
             <div class="row">
 
                 <!-- unidades -->
@@ -175,6 +191,7 @@
     const URL_GET_SERVICES = '<?php echo route_to('get.unit.services'); ?>';
     const URL_GET_CALENDAR = '<?php echo route_to('get.calendar'); ?>';
     const URL_GET_HOURS = '<?php echo route_to('get.hours'); ?>';
+    const URL_CREATION_SCHEDULE = '<?php echo route_to('create.schedule'); ?>';
 
     const boxErrors = document.getElementById('boxErrors');
 
@@ -373,6 +390,63 @@
 
 
     //--------------------FUNÇÕES--------------------------//
+
+    // tenta criar o agendamento
+    const tryCreateSchedule = async () => {
+
+        boxErrors.innerHTML = '';
+
+        // o que será enviado no request
+        const body = {
+            unit_id: unitId,
+            serviceId: serviceId,
+            month: chosenMonth,
+            day: chosenDay,
+            hour: chosenHour
+        };
+
+
+        const response = await fetch(URL_CREATION_SCHEDULE, {
+            method: 'post',
+            headers: setHeadersRequest(),
+            body: JSON.stringify(body)
+        });
+
+        if (!response.ok) {
+
+            // temos erros de validação (status code = 400)?
+            if (response.status === 400) {
+
+                // habilito o botão para nova tentativa
+                btnTryCreate.disabled = false;
+                btnTryCreate.innerText = 'Criar meu agendamento';
+
+                const data = await response.json();
+                const errors = data.errors;
+
+                // tranformo o array de erros em uma string
+                let message = Object.keys(errors).map(field => errors[field]).join(', ');
+
+                boxErrors.innerHTML = showErrorMessage(message);
+
+                return;
+            }
+
+            // erro diferente de 400
+
+            boxErrors.innerHTML = showErrorMessage('Não foi possível criar o seu agendamento');
+
+            throw new Error(`HTTP error! Status: ${response.status}`);
+
+            return;
+        }
+
+
+        // tudo certo... agendamento criado
+
+        // retornamos para a mesma view para exibir a mensagem de successo.
+        window.location.href = window.location.href;
+    };
 
     // calendário
     const getCalendar = async () => {
