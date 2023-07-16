@@ -128,8 +128,9 @@ class CalendarService
                 /**
                  * @todo renderizar botão com o dia
                  */
+                $btnDay = $this->renderDayButton(day: $day, month: $month);
 
-                $calendar .= "<td>{$day}</td>";
+                $calendar .= "<td>{$btnDay}</td>";
 
                 // vamos incrementar o dia de início
                 $startDay++;
@@ -176,5 +177,43 @@ class CalendarService
 
             return "Não foi possível gerar o calendário para o mês informado";
         }
+    }
+
+
+    /**
+     * Renderiza o botão HTML para click no front
+     *
+     * @param integer $day
+     * @param integer $month
+     * @param boolean $isWeekend
+     * @return string
+     */
+    private function renderDayButton(int $day, int $month, bool $isWeekend = false): string
+    {
+
+        // atributos padrão para o botão
+        $attributes = [
+            'type'  => 'button',
+            'class' => 'btn btn-primary btn-calendar-day',
+        ];
+
+
+        // data atual
+        $now          = Time::now();
+        $currentDay   = (int) $now->getDay();
+        $currentMonth = (int) $now->getMonth();
+
+        // se o dia for menor que o dia atual e o mês for igual ao mês corrente
+        // então desabilitamos o botão
+        if ($day < $currentDay && $month === $currentMonth || $isWeekend) {
+
+            $attributes['disabled'] = true;
+        } else {
+
+            $attributes['class'] = "chosenDay {$attributes['class']}";
+        }
+
+
+        return form_button(data: $attributes, content: "{$day}");
     }
 }
