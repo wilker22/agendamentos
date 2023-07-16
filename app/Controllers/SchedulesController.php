@@ -37,7 +37,7 @@ class SchedulesController extends BaseController
         ];
 
         // ISSO É UM DEBUG, OK?
-        $data['calendario_debug'] = $this->calendarService->generate(month: 6);
+        $data['calendario_debug'] = $this->calendarService->generate(month: 8);
 
         return view('Front/Schedules/index', $data);
     }

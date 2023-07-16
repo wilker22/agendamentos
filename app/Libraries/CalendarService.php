@@ -83,7 +83,35 @@ class CalendarService
                 throw new InvalidArgumentException("O mês {$month} não é um mês válido para gerar o calendário");
             }
 
-            return "Tudo certo até aqui";
+            // criamos um novo objeto para termos acesso ao dia da semana do primeiro dia do mês
+            $firstDayObject = $now::create(year: $year, month: $month, day: 1);
+
+            // obtém a quantidade de dias do mês
+            $daysOfMonth = $firstDayObject->format('t');
+
+            // obtém a representação numérica do dia da semana. 0 (domingo) até 6 (sabádo)
+            $startDay = (int) $firstDayObject->format('w'); // minúsculo
+
+            // abertura da div que comporta o calendário
+            $calendar = '<div class="table-responsive">';
+
+            // abertura da tabela
+            $calendar .= '<table class="table table-sm table-borderless">';
+
+            // dias da semana (primeira linha da tabela)
+            $calendar .= '<tr class="text-center">
+                            <td>Dom</td>
+                            <td>Seg</td>
+                            <td>Ter</td>
+                            <td>Qua</td>
+                            <td>Qui</td>
+                            <td>Sex</td>
+                            <td>Sáb</td>
+                         </tr>
+                        ';
+
+
+            return $calendar;
         } catch (\Throwable $th) {
 
             log_message('error', '[ERROR] {exception}', ['exception' => $th]);
