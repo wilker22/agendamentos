@@ -2,6 +2,7 @@
 
 namespace Config;
 
+use App\Controllers\HomeController as WebController;
 use App\Controllers\Super\HomeController;
 use App\Controllers\Super\ServicesController;
 use App\Controllers\Super\UnitsController;
@@ -34,7 +35,7 @@ $routes->set404Override();
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
-$routes->get('/', 'Home::index', ['as' => 'home']);
+$routes->get('/', [WebController::class, 'index'], ['as' => 'home']);
 
 
 /**
