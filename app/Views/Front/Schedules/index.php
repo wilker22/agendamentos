@@ -131,10 +131,19 @@
 
                         </div>
 
+
+
+
                     </div>
 
                 </div>
 
+
+                <div class="col-md-12 border-top pt-4">
+
+                    <button id="btnTryCreate" class="btn btn-primary">Criar meu agendamento</button>
+
+                </div>
 
             </div>
 
@@ -175,6 +184,7 @@
     const mainBoxCalendar = document.getElementById('mainBoxCalendar');
     const boxCalendar = document.getElementById('boxCalendar');
     const boxHours = document.getElementById('boxHours');
+    const btnTryCreate = document.getElementById('btnTryCreate');
 
     // preview do que está sendo escolhido
     const chosenUnitText = document.getElementById('chosenUnitText');
@@ -317,6 +327,52 @@
         getCalendar();
 
     });
+
+
+    btnTryCreate.addEventListener('click', (event) => {
+
+
+        event.preventDefault();
+
+
+        boxErrors.innerHTML = '';
+
+        // unidade foi escolhida?
+        if (unitId === null || unitId === '') {
+
+            boxErrors.innerHTML = showErrorMessage('Escolha a Unidade');
+            return;
+        }
+
+
+        // serviço foi escolhido?
+        if (serviceId === null || serviceId === '') {
+
+            boxErrors.innerHTML = showErrorMessage('Escolha o Serviço');
+            return;
+        }
+
+        // verificamos se os campos referente ao mês, dia e hora estão devidamente preenchidos
+        const dateFieldsAreFilled = (chosenMonth !== null && chosenDay !== null && chosenHour !== null);
+
+
+        if (!dateFieldsAreFilled) {
+
+            boxErrors.innerHTML = showErrorMessage('Escolha o Mês, Dia e hora para prosseguir');
+            return;
+        }
+
+        // desabilitamos o botão
+        btnTryCreate.disabled = true;
+        btnTryCreate.innerText = 'Estamos criando o seu agendamento...';
+
+        // agora podemos criar o agendamento
+        tryCreateSchedule();
+
+    });
+
+
+    //--------------------FUNÇÕES--------------------------//
 
     // calendário
     const getCalendar = async () => {
