@@ -90,6 +90,7 @@
 
 <script>
     const URL_GET_SERVICES = '<?php echo route_to('get.unit.services'); ?>';
+    const URL_GET_CALENDAR = '<?php echo route_to('get.calendar'); ?>';
 
     const boxErrors = document.getElementById('boxErrors');
 
@@ -197,6 +198,77 @@
         });
 
     };
+
+
+    // mês
+    document.getElementById('month').addEventListener('change', (event) => {
+
+
+        // limpo o preview do mês escolhido a cada mudança
+        chosenMonthText.innerText = '';
+
+        /**
+         * @todo CRIAR ESSA FUNÇÃO
+         */
+        // resetBoxCalendar();
+
+        const month = event.target.value;
+
+        if (!month) {
+
+            /**
+             * @todo CRIAR FUNÇÃO
+             */
+            // resetMonthDataVariables();
+
+            // resetBoxCalendar();
+
+            return;
+        }
+
+        // mês válido escolhido...
+
+        // atribuímos à variável de escopo global o valor do mês escolhido
+        chosenMonth = event.target.value;
+
+        chosenMonthText.innerText = event.target.options[event.target.selectedIndex].text;
+
+        // finalmente buscamos o calendário para mês escolhido
+        getCalendar();
+
+    });
+
+
+    const getCalendar = async (month) => {
+
+        //limpo os erros
+        boxErrors.innerHTML = '';
+
+        // limpo o preview do dia e da hora escolhidos, pois o user precisará clicar no horário novamente
+        chosenDayText.innerText = '';
+        chosenHourText.innerText = '';
+
+        let url = URL_GET_CALENDAR + '?' + setParameters({
+            month: month
+        });
+
+        const response = await fetch(url, {
+            method: 'get',
+            headers: setHeadersRequest(),
+        });
+
+        if (!response.ok) {
+
+            boxErrors.innerHTML = showErrorMessage('Não foi possível recuperar o calendário para o mês informado');
+
+            throw new Error(`HTTP error! Status: ${response.status}`);
+
+            return;
+        }
+
+        const data = await response.json();
+
+    }
 </script>
 
 <?php echo $this->endSection(); ?>
