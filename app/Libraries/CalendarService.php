@@ -60,6 +60,7 @@ class CalendarService
      * Renderiza os dias para o mês informado para serem escolhidos no front.
      *
      * @param integer $month
+     * @throws Exception
      * @return string
      */
     public function generate(int $month): string
@@ -128,7 +129,11 @@ class CalendarService
                 /**
                  * @todo renderizar botão com o dia
                  */
-                $btnDay = $this->renderDayButton(day: $day, month: $month);
+                $btnDay = $this->renderDayButton(
+                    day: $day,
+                    month: $month,
+                    isWeekend: $this->isWeekend(year: $year, month: $month, day: $day)
+                );
 
                 $calendar .= "<td>{$btnDay}</td>";
 
@@ -177,6 +182,28 @@ class CalendarService
 
             return "Não foi possível gerar o calendário para o mês informado";
         }
+    }
+
+
+    /**
+     * Verifica se a ata informada é um final de semana.
+     *
+     * @param integer $year
+     * @param integer $month
+     * @param integer $day
+     * @return boolean
+     */
+    private function isWeekend(int $year, int $month, int $day): bool
+    {
+        // vamos obter o primeiro dia do mês informado no formato unix timestamp
+        $timeCreated = Time::create(year: $year, month: $month, day: $day);
+
+        // obtém a representação numérica do dia da semana. 0 (domingo) até 6 (sabádo)
+        $dayOfWeek = (int) $timeCreated->format('w'); // minúsculo
+
+
+        // 0 => domindo ou 6 => sábado
+        return ($dayOfWeek === 0 || $dayOfWeek === 6);
     }
 
 
