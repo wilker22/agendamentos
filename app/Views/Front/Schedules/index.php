@@ -20,6 +20,13 @@
 <div class="container pt-5">
     <h1 class="mt-5"><?php echo $title; ?></h1>
 
+    <!-- DEBUG DO CALENDAR -->
+    <div class="container">
+
+        <?php echo $calendario_debug; ?>
+
+    </div>
+
     <div id="boxErrors" class="mt-4 mb-3">
 
     </div>
@@ -267,6 +274,8 @@
         }
 
         const data = await response.json();
+
+        console.log(data);
 
     }
 </script>

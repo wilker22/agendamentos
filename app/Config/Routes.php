@@ -86,6 +86,7 @@ $routes->group('schedules', static function ($routes) {
 
     $routes->get('/', [SchedulesController::class, 'index'], ['as' => 'schedules.new']);
     $routes->get('services', [SchedulesController::class, 'unitServices'], ['as' => 'get.unit.services']); // recuperamos via fetch API os serviços da unidade
+    $routes->get('calendar', [SchedulesController::class, 'getCalendar'], ['as' => 'get.calendar']); // recuperamos via fetch API o calendário para o mês desejado
 });
 
 

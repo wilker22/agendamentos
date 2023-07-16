@@ -3,6 +3,7 @@
 namespace App\Libraries;
 
 use CodeIgniter\I18n\Time;
+use InvalidArgumentException;
 
 class CalendarService
 {
@@ -52,5 +53,42 @@ class CalendarService
         }
 
         return form_dropdown(data: 'month', options: $options, selected: [], extra: ['id' => 'month', 'class' => 'form-select']);
+    }
+
+
+    /**
+     * Renderiza os dias para o mês informado para serem escolhidos no front.
+     *
+     * @param integer $month
+     * @return string
+     */
+    public function generate(int $month): string
+    {
+
+        try {
+
+            // tempo atual
+            $now = Time::now();
+
+            // mês atual
+            $currentMonth = (int) $now->getMonth();
+
+            // ano atual
+            $year = (int) $now->getYear();
+
+            // vamos garantir que apenas meses válidos sejam aceitos,
+            // ou seja, tem que ser maior que o mês atual e que sejam válidos
+            if ($month < $currentMonth || !in_array($month, array_keys(self::$months))) {
+
+                throw new InvalidArgumentException("O mês {$month} não é um mês válido para gerar o calendário");
+            }
+
+            return "Tudo certo até aqui";
+        } catch (\Throwable $th) {
+
+            log_message('error', '[ERROR] {exception}', ['exception' => $th]);
+
+            return "Não foi possível gerar o calendário para o mês informado";
+        }
     }
 }
