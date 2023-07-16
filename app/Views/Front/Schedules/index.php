@@ -316,7 +316,7 @@
 
     });
 
-
+    // calendário
     const getCalendar = async () => {
 
         //limpo os erros
@@ -397,6 +397,66 @@
         });
 
     }
+
+
+    const getHours = async () => {
+
+
+        boxErrors.innerHTML = '';
+
+
+        // a unidade realmente foi escolhida?
+        if (!unitId) {
+
+            boxErrors.innerHTML = showErrorMessage('Você precisa escolher a Unidade de atendimento');
+            return;
+        }
+
+        let url = URL_GET_HOURS + '?' + setParameters({
+            unit_id: unitId,
+            month: chosenMonth,
+            day: chosenDay
+        });
+
+
+        const response = await fetch(url, {
+            method: 'get',
+            headers: setHeadersRequest(),
+        });
+
+        if (!response.ok) {
+
+            boxErrors.innerHTML = showErrorMessage('Não foi possível recuperar os horários disponíveis');
+
+            throw new Error(`HTTP error! Status: ${response.status}`);
+
+            return;
+        }
+
+        // recuperamos a resposta
+        const data = await response.json();
+
+
+        // recupero as horas
+        const hours = data.hours;
+
+
+        if (hours === null) {
+
+            boxHours.innerHTML = showErrorMessage(`Não há horários disponíveis para o dia ${chosenDay}`);
+
+            chosenDay = null;
+
+            return;
+        }
+
+
+        // colocamos na div as horas
+        boxHours.innerHTML = hours;
+
+
+
+    };
 </script>
 
 <?php echo $this->endSection(); ?>

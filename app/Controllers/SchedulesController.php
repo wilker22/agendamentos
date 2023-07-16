@@ -94,4 +94,28 @@ class SchedulesController extends BaseController
             $this->response->setStatusCode(500);
         }
     }
+
+
+    /**
+     * Recupera os horários disponíveis
+     *
+     * @return ResponseInterface
+     */
+    public function getHours()
+    {
+
+        try {
+
+            $this->checkMethod('ajax');
+
+            return $this->response->setJSON([
+                'hours' => Factories::class(UnitAvaiableHoursService::class)->renderHours($this->request->getGet())
+            ]);
+        } catch (\Throwable $th) {
+
+            log_message('error', '[ERROR] {exception}', ['exception' => $th]);
+
+            $this->response->setStatusCode(500);
+        }
+    }
 }
