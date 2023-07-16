@@ -41,11 +41,10 @@ class SchedulesController extends BaseController
 
         try {
 
-
             $this->checkMethod('ajax');
 
             return $this->response->setJSON([
-                'services' => null
+                'services' => 'Serviços da Unidade'
             ]);
         } catch (\Throwable $th) {
 

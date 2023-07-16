@@ -20,6 +20,9 @@
 <div class="container pt-5">
     <h1 class="mt-5"><?php echo $title; ?></h1>
 
+    <div id="boxErrors" class="mt-4 mb-3">
+
+    </div>
 
     <div class="row">
 
@@ -78,8 +81,10 @@
 <script>
     const URL_GET_SERVICES = '<?php echo route_to('get.unit.services'); ?>';
 
+    const boxErrors = document.getElementById('boxErrors');
 
     const mainBoxServices = document.getElementById('mainBoxServices');
+    const boxServices = document.getElementById('boxServices');
 
     // preview do que está sendo escolhido
     const chosenUnitText = document.getElementById('chosenUnitText');
@@ -136,6 +141,7 @@
     const getServices = async () => {
 
         //BOX ERRORS CRIAR DEPOIS
+        boxErrors.innerHTML = '';
 
         let url = URL_GET_SERVICES + '?' + setParameters({
             unit_id: unitId
@@ -148,9 +154,20 @@
         });
 
 
-        console.log(response);
+        if (!response.ok) {
+
+            boxErrors.innerHTML = showErrorMessage('Não foi possível recuperar os Serviços');
+
+            throw new Error(`HTTP error! Status: ${response.status}`);
+
+            return;
+        }
 
 
+
+        const data = await response.json();
+
+        boxServices.innerHTML = data.services;
 
     };
 </script>
