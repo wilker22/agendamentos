@@ -96,7 +96,7 @@ class CalendarService
             $calendar = '<div class="table-responsive">';
 
             // abertura da tabela
-            $calendar .= '<table class="table table-sm table-borderless">';
+            $calendar .= '<table class="table table-sm table-bordered">';
 
             // dias da semana (primeira linha da tabela)
             $calendar .= '<tr class="text-center">
@@ -107,10 +107,68 @@ class CalendarService
                             <td>Qui</td>
                             <td>Sex</td>
                             <td>Sáb</td>
-                         </tr>
+                           </tr>
                         ';
 
 
+            // enquanto o dia de início for maior que zero, adiciono as células vazias através do for, 
+            // até que encontremos o dia inicial da semana
+            if ($startDay > 0) {
+
+                for ($i = 0; $i < $startDay; $i++) {
+
+                    $calendar .= '<td>&nbsp;</td>';
+                }
+            }
+
+
+            // nesse ponto podemos popular o calendário
+            for ($day = 1; $day <= $daysOfMonth; $day++) {
+
+                /**
+                 * @todo renderizar botão com o dia
+                 */
+
+                $calendar .= "<td>{$day}</td>";
+
+                // vamos incrementar o dia de início
+                $startDay++;
+
+                // se $startDay for igual a 7 (domingo), adicionamos uma nova linha na tabela
+                if ($startDay === 7) {
+
+                    // reinicio o startDay em zero
+                    $startDay = 0;
+
+
+                    // se o dia corrente for menor que $daysOfMonth, então realizamos a abertura da <tr> (nova linha)
+                    if ($day < $daysOfMonth) {
+
+                        $calendar .= '<tr>';
+                    }
+                }
+            } // fim do for
+
+
+            // agora preenchemos as células restantes com espaço
+            if ($startDay > 0) {
+
+                for ($i = $startDay; $i < 7; $i++) {
+
+                    $calendar .= '<td>&nbsp;</td>';
+                }
+
+                // e fechamos a linha
+                $calendar .= '</tr>';
+            }
+
+            // fechamos a tebela
+            $calendar .= '</table>';
+
+            // fechamos a div table-responsive
+            $calendar .= '</div>';
+
+            // finalmente retornamos o calendário com dias para o mês desejado
             return $calendar;
         } catch (\Throwable $th) {
 
