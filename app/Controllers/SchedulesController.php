@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
+use App\Libraries\CalendarService;
 use App\Libraries\ScheduleService;
 use CodeIgniter\Config\Factories;
 use CodeIgniter\HTTP\ResponseInterface;
@@ -13,18 +14,24 @@ class SchedulesController extends BaseController
     /** @var ScheduleService */
     private ScheduleService $scheduleService;
 
+
+    /** @var CalendarService */
+    private CalendarService $calendarService;
+
     /** Construtor */
     public function __construct()
     {
         $this->scheduleService = Factories::class(ScheduleService::class);
+        $this->calendarService = Factories::class(CalendarService::class);
     }
 
 
     public function index()
     {
         $data = [
-            'title' => 'Criar agendamento',
-            'units' => $this->scheduleService->renderUnits()
+            'title'  => 'Criar agendamento',
+            'units'  => $this->scheduleService->renderUnits(),
+            'months' => $this->calendarService->renderMonths(),
         ];
 
         return view('Front/Schedules/index', $data);

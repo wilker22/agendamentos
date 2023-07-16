@@ -52,6 +52,16 @@
                 </div>
 
 
+                <!-- Mês (oculto no load da view)-->
+                <div id="boxMonths" class="col-md-12 d-none mb-4">
+
+                    <p class="lead">Escolha o Mês</p>
+
+                    <?php echo $months; ?>
+
+                </div>
+
+
             </div>
 
         </div>
@@ -85,6 +95,7 @@
 
     const mainBoxServices = document.getElementById('mainBoxServices');
     const boxServices = document.getElementById('boxServices');
+    const boxMonths = document.getElementById('boxMonths');
 
     // preview do que está sendo escolhido
     const chosenUnitText = document.getElementById('chosenUnitText');
@@ -177,9 +188,11 @@
             serviceId = elementService.value ?? null;
             let serviceName = serviceId !== '' ? elementService.options[event.target.selectedIndex].text : null;
 
-            console.log(serviceId);
+            console.log('Serviço foi escolhido? ', serviceId !== '');
 
             chosenServiceText.innerText = serviceName;
+
+            serviceId !== '' ? boxMonths.classList.remove('d-none') : boxMonths.classList.add('d-none');
 
         });
 
