@@ -167,7 +167,21 @@
 
         const data = await response.json();
 
+        // colocamos na div os serviços devolvidos no response
         boxServices.innerHTML = data.services;
+
+        const elementService = document.getElementById('service_id');
+
+        elementService.addEventListener('change', (event) => {
+
+            serviceId = elementService.value ?? null;
+            let serviceName = serviceId !== '' ? elementService.options[event.target.selectedIndex].text : null;
+
+            console.log(serviceId);
+
+            chosenServiceText.innerText = serviceName;
+
+        });
 
     };
 </script>
