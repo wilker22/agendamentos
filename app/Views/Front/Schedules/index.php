@@ -368,16 +368,20 @@
 
 
                 // limpo o preview da hora
-                chosenDayText.innerText = '';
+                chosenHourText.innerText = '';
+
+                // mensagem
+                boxHours.innerHTML = '<span class="text-info">Carregando as horas...</span>';
 
 
                 // redefino para null para garantir
                 chosenHour = null;
 
-                /**
-                 * @todo criar função para remover a classe do botões clicados
-                 */
 
+                // antes precisamos remover
+                removeClassFromElements(buttonsChosenDay, 'btn-calendar-day-chosen');
+
+                // adiciona a classe no elemento
                 event.target.classList.add('btn-calendar-day-chosen');
 
 
@@ -455,7 +459,47 @@
         boxHours.innerHTML = hours;
 
 
+        // agora recupero os elementos que tenham a classe '.btn-hour',
+        // ou seja, os buttons dos horários
+        const buttonsBtnHour = document.querySelectorAll('.btn-hour');
 
+
+        // percorro eles
+        buttonsBtnHour.forEach(element => {
+
+            element.addEventListener('click', (event) => {
+
+
+                // removo a classe antes
+                removeClassFromElements(buttonsBtnHour, 'btn-hour-chosen');
+
+                // e agora adiciono só no elemento clicado
+                event.target.classList.add('btn-hour-chosen');
+
+                // armazenamos na variável global
+                chosenHour = event.target.dataset.hour;
+
+
+                // preview da hora escolhida
+                chosenHourText.innerText = chosenHour;
+            });
+        });
+
+
+
+    };
+
+
+    // remove a classe do array de elementos
+    const removeClassFromElements = (elements, className) => {
+
+        elements.forEach(element => {
+
+            if (element.classList.contains(className)) {
+
+                element.classList.remove(className);
+            }
+        });
     };
 </script>
 
