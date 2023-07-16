@@ -11,6 +11,53 @@
 <?php echo $this->section('css'); ?>
 
 
+<style>
+    /** para deixar o botão do dia um pouco menor */
+    .btn-calendar-day {
+        max-width: 36px !important;
+        min-width: 36px !important;
+        line-height: 0px !important;
+        padding: 10% !important;
+        height: 30px !important;
+        display: table-cell !important;
+        vertical-align: middle !important;
+    }
+
+    .btn-calendar-day-chosen {
+        color: #fff !important;
+        background-color: #28a745 !important;
+        border-color: #28a745 !important;
+    }
+
+    .btn-hour {
+        margin-bottom: 10px !important;
+        max-width: 55px !important;
+        min-width: 55px !important;
+        padding-left: 8px !important;
+        line-height: 0px !important;
+        height: 30px !important;
+    }
+
+    .btn-hour-chosen {
+        color: #fff !important;
+        background-color: #28a745 !important;
+        border-color: #28a745 !important;
+    }
+
+
+    /** para centralizar o conteúdo dentro da célula do calendário */
+    td {
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    /** para aparecer os options dos dropdowns */
+    .wizard .content .form-control {
+        padding: .375rem 0.75rem !important;
+    }
+</style>
+
+
 <?php echo $this->endSection(); ?>
 
 
@@ -19,13 +66,6 @@
 
 <div class="container pt-5">
     <h1 class="mt-5"><?php echo $title; ?></h1>
-
-    <!-- DEBUG DO CALENDAR -->
-    <div class="container">
-
-        <?php echo $calendario_debug; ?>
-
-    </div>
 
     <div id="boxErrors" class="mt-4 mb-3">
 
@@ -69,6 +109,33 @@
                 </div>
 
 
+                <div id="mainBoxCalendar" class="col-md-12 d-none mb-4">
+
+                    <p class="lead">Escolha o dia e o horário</p>
+
+                    <div class="row">
+
+                        <div class="col-md-6 form-group">
+
+                            <div id="boxCalendar">
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-6 form-group">
+
+                            <div id="boxHours">
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
             </div>
 
         </div>
@@ -104,6 +171,9 @@
     const mainBoxServices = document.getElementById('mainBoxServices');
     const boxServices = document.getElementById('boxServices');
     const boxMonths = document.getElementById('boxMonths');
+    const mainBoxCalendar = document.getElementById('mainBoxCalendar');
+    const boxCalendar = document.getElementById('boxCalendar');
+    const boxHours = document.getElementById('boxHours');
 
     // preview do que está sendo escolhido
     const chosenUnitText = document.getElementById('chosenUnitText');
@@ -246,7 +316,7 @@
     });
 
 
-    const getCalendar = async (month) => {
+    const getCalendar = async () => {
 
         //limpo os erros
         boxErrors.innerHTML = '';
@@ -256,7 +326,7 @@
         chosenHourText.innerText = '';
 
         let url = URL_GET_CALENDAR + '?' + setParameters({
-            month: month
+            month: chosenMonth
         });
 
         const response = await fetch(url, {
@@ -273,9 +343,14 @@
             return;
         }
 
+        // recuperamos a resposta
         const data = await response.json();
 
-        console.log(data);
+        // exibo a div do calendário e das horas
+        mainBoxCalendar.classList.remove('d-none');
+
+        // colamos na div o calendário criado
+        boxCalendar.innerHTML = data.calendar;
 
     }
 </script>

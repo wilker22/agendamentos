@@ -36,9 +36,6 @@ class SchedulesController extends BaseController
             'months' => $this->calendarService->renderMonths(),
         ];
 
-        // ISSO É UM DEBUG, OK?
-        $data['calendario_debug'] = $this->calendarService->generate(month: 12);
-
         return view('Front/Schedules/index', $data);
     }
 
@@ -86,7 +83,7 @@ class SchedulesController extends BaseController
             $month = (int) $this->request->getGet('month');
 
             return $this->response->setJSON([
-                'calendar' => null
+                'calendar' => $this->calendarService->generate(month: $month)
             ]);
         } catch (\Throwable $th) {
 

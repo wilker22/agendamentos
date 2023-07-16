@@ -97,7 +97,7 @@ class CalendarService
             $calendar = '<div class="table-responsive">';
 
             // abertura da tabela
-            $calendar .= '<table class="table table-sm table-bordered">';
+            $calendar .= '<table class="table table-sm table-borderless">';
 
             // dias da semana (primeira linha da tabela)
             $calendar .= '<tr class="text-center">
