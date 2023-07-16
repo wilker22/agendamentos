@@ -50,8 +50,28 @@ class UnitAvaiableHoursService
             // precisamo identificar se a data desejada é a data atual
             $isCurrentDay = $dateWanted === $now->format('Y-m-d');
 
+            $timeRange = $this->createUnitTimeRange(
+                start: $unit->starttime,
+                end: $unit->endtime,
+                interval: $unit->servicetime,
+                isCurrentDay: $isCurrentDay
+            );
 
-            // criamos o range de horários
+
+            // abertura da div com os horários com valor padrão null
+            $divHours = null;
+
+            foreach ($timeRange as $hour) {
+
+                /**
+                 * @todo verificar se o horário já não existe na tabela de agendamentos
+                 */
+
+                $divHours .= form_button(data: ['class' => 'btn btn-hour btn-primary', 'data-hour' => $hour], content: $hour);
+            }
+
+            // finalmente retornamos o range de horários
+            return $divHours;
         } catch (\Throwable $th) {
 
 
@@ -79,5 +99,40 @@ class UnitAvaiableHoursService
             DateInterval::createFromDateString($interval),
             new Time($end)
         );
+
+        // receberá os tempos gerados
+        $timeRange = [];
+
+        // tempo atual em hh:mm para comparar com a hora e minutos gerados no foreach abaixo
+        $now = Time::now()->format('H:i');
+
+
+        foreach ($period as $instance) {
+
+            // recuperamos o tempo no formato 'hh:mm'
+            $hour = Time::createFromInstance($instance)->format('H:i');
+
+
+            // se não for o dia atual, fazemos o push normal
+            if (!$isCurrentDay) {
+
+                $timeRange[] = $hour;
+            } else {
+
+                // aqui dentro é dia atual, 
+                // verificamos se a hora de início é maior que hora atual.
+                // dessa forma só apresentaremos horários que forem maiores que o horário atual,
+                // ou seja, não apresentamos horas passadas
+
+                if ($hour > $now) {
+
+                    $timeRange[] = $hour;
+                }
+            }
+        }
+
+
+        // finalmente retornamos os horários gerados
+        return $timeRange;
     }
 }
