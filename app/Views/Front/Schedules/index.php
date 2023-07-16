@@ -77,6 +77,40 @@
 
 <script>
     const URL_GET_SERVICES = '<?php echo route_to('get.unit.services'); ?>';
+
+
+    const mainBoxServices = document.getElementById('mainBoxServices');
+    const chosenUnitText = document.getElementById('chosenUnitText');
+
+
+
+
+    // variáveis de escopo global que utilizaremos na criação do agendamento
+    let unitId = null;
+    let serviceId = null;
+    let chosenMonth = null;
+    let chosenDay = null;
+    let chosenHour = null;
+
+
+    const units = document.getElementsByName('unit_id');
+
+    units.forEach(element => {
+
+        // adicionar para cada elemento um 'listener' ou ouvinte
+        element.addEventListener('click', (event) => {
+
+            mainBoxServices.classList.remove('d-none');
+
+            // atribuo à variável global o valor da unidade clicada
+            unitId = element.value;
+
+            chosenUnitText.innerText = element.getAttribute('data-unit');
+
+        });
+
+
+    });
 </script>
 
 <?php echo $this->endSection(); ?>
