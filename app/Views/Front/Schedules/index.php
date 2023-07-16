@@ -203,6 +203,13 @@
 
             mainBoxServices.classList.remove('d-none');
 
+            // redefinimos as opções dos meses
+            resetMonthOptions();
+
+
+            // redefino o calendário
+            resetBoxCalendar();
+
             // atribuo à variável global o valor da unidade clicada
             unitId = element.value;
 
@@ -285,21 +292,16 @@
         // limpo o preview do mês escolhido a cada mudança
         chosenMonthText.innerText = '';
 
-        /**
-         * @todo CRIAR ESSA FUNÇÃO
-         */
-        // resetBoxCalendar();
+        resetBoxCalendar();
 
         const month = event.target.value;
 
         if (!month) {
 
-            /**
-             * @todo CRIAR FUNÇÃO
-             */
-            // resetMonthDataVariables();
 
-            // resetBoxCalendar();
+            resetMonthDataVariables();
+
+            resetBoxCalendar();
 
             return;
         }
@@ -488,6 +490,48 @@
 
 
     };
+
+
+    // redefine as opções dos meses
+    const resetMonthOptions = () => {
+
+        console.log('Redefini as opções de meses...');
+
+        // ocultamos a div dos meses
+        boxMonths.classList.add('d-none');
+
+
+        // volta para a opção '--- Escolha ---'
+        document.getElementById('month').selectedIndex = 0;
+
+        // nulamos esses campos
+        resetMonthDataVariables();
+    }
+
+
+    // Redefine as variáveis pertinentes ao mês, dia, hora
+    const resetMonthDataVariables = () => {
+
+        console.log('Redefini as variáveis pertinentes ao mês, dia, hora...');
+
+        chosenMonth = null;
+        chosenDay = null;
+        chosenHour = null;
+    }
+
+
+    // Redefine o calendário
+    const resetBoxCalendar = () => {
+
+        console.log('Redefini o calendário...');
+
+        mainBoxCalendar.classList.add('d-none');
+
+
+        boxCalendar.innerHTML = '';
+        boxHours.innerHTML = '';
+
+    }
 
 
     // remove a classe do array de elementos
