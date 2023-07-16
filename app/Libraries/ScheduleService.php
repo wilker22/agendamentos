@@ -38,7 +38,7 @@ class ScheduleService
 
             $radios .= '<div class="form-check mb-2">';
             $radios .= "<input type='radio' name='unit_id' data-unit='{$unit->name} \nEndereço: {$unit->address}' value='{$unit->id}' class='form-check-input' id='radio-unit-{$unit->id}'>";
-            $radios .= "<label class='form-check-label' for='radio-unit-{$unit->id}'>{$unit->name}<br>{$unit->address}</label>";
+            $radios .= "<label class='form-check-label' for='radio-unit-{$unit->id}'>{$unit->name}<br> Endereço: {$unit->address}</label>";
             $radios .= '</div>';
         }
 
