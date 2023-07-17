@@ -67,9 +67,7 @@
 <div class="container pt-5">
     <h1 class="mt-5"><?php echo $title; ?></h1>
 
-    <div id="boxErrors" class="mt-4 mb-3">
 
-    </div>
 
     <div class="row">
 
@@ -155,6 +153,9 @@
                 </div>
 
 
+                <div id="boxErrors" class="mt-4 mb-3">
+
+                </div>
                 <div class="col-md-12 border-top pt-4">
 
                     <button id="btnTryCreate" class="btn btn-primary">Criar meu agendamento</button>

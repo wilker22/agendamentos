@@ -6,6 +6,7 @@ use App\Controllers\BaseController;
 use App\Libraries\CalendarService;
 use App\Libraries\ScheduleService;
 use App\Libraries\UnitAvaiableHoursService;
+use App\Validation\Schedule;
 use CodeIgniter\Config\Factories;
 use CodeIgniter\HTTP\ResponseInterface;
 
@@ -132,8 +133,23 @@ class SchedulesController extends BaseController
 
             $this->checkMethod('ajax');
 
+            $request = (array) $this->request->getJSON();
+
+            $rules = Factories::class(Schedule::class)->rules();
+
+            if (!$this->validateData($request, $rules)) {
+
+                return $this->response->setStatusCode(400)->setJSON([
+                    'success' => false,
+                    'errors'  => $this->validator->getErrors()
+                ]);
+            }
+
+
+            session()->setFlashdata('success', 'Agendamento criado com sucesso!');
+
             return $this->response->setJSON([
-                'hours' => Factories::class(UnitAvaiableHoursService::class)->renderHours($this->request->getGet())
+                'success' => true
             ]);
         } catch (\Throwable $th) {
 
@@ -142,5 +158,4 @@ class SchedulesController extends BaseController
             $this->response->setStatusCode(500);
         }
     }
-}
 }
