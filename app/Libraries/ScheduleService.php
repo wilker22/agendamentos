@@ -108,9 +108,6 @@ class ScheduleService
             // terei algo assim: 2023-07-17 15:15
             $chosenDate = "{$currentYear}-{$request->month}-{$request->day} {$request->hour}";
 
-            /**
-             * @todo simular um debug
-             */
 
             if (!$model->chosenDateIsFree(unitId: $request->unit_id, chosenDate: $chosenDate)) {
 
@@ -124,7 +121,7 @@ class ScheduleService
             ]);
 
             // conseguimos criar o agendamento?
-            if ($createdId = $model->insert($schedule)) {
+            if (!$createdId = $model->insert($schedule)) {
 
                 log_message('error', 'Erro ao criar agendamento: ', $model->errors());
 
