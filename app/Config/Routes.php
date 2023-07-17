@@ -39,6 +39,10 @@ $routes->set404Override();
 $routes->get('/', [WebController::class, 'index'], ['as' => 'home']);
 
 
+// rotas de autenticação
+service('auth')->routes($routes);
+
+
 /**
  * @todo colocar filtros de permissão / autenticação
  */
