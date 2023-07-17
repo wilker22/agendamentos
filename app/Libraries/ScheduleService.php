@@ -2,9 +2,11 @@
 
 namespace App\Libraries;
 
+use App\Entities\Schedule;
 use App\Models\ScheduleModel;
 use App\Models\ServiceModel;
 use App\Models\UnitModel;
+use CodeIgniter\I18n\Time;
 use Exception;
 use InvalidArgumentException;
 
@@ -95,6 +97,45 @@ class ScheduleService
         try {
 
             $model = model(ScheduleModel::class);
+
+
+            $request = (object) $request;
+
+
+            $currentYear = Time::now()->getYear();
+
+
+            // terei algo assim: 2023-07-17 15:15
+            $chosenDate = "{$currentYear}-{$request->month}-{$request->day} {$request->hour}";
+
+            /**
+             * @todo simular um debug
+             */
+
+            if (!$model->chosenDateIsFree(unitId: $request->unit_id, chosenDate: $chosenDate)) {
+
+                return "A data escolhida não está mais disponível";
+            }
+
+            $schedule = new Schedule([
+                'unit_id'     => $request->unit_id,
+                'service_id'  => $request->service_id,
+                'chosen_date' => $chosenDate,
+            ]);
+
+            // conseguimos criar o agendamento?
+            if ($createdId = $model->insert($schedule)) {
+
+                log_message('error', 'Erro ao criar agendamento: ', $model->errors());
+
+                return "Não foi possível criar o agendamento";
+            }
+
+            /**
+             * @todo disparar email para o usuário com os dados do agendamento criado
+             */
+
+            return true;
         } catch (\Throwable $th) {
 
             log_message('error', '[ERROR] {exception}', ['exception' => $th]);

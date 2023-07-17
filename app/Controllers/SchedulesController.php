@@ -146,6 +146,18 @@ class SchedulesController extends BaseController
                 ]);
             }
 
+            $result = $this->scheduleService->createSchedule(request: $request);
+
+            // se for string, temos erro na criação
+            if (is_string($result)) {
+
+                return $this->response->setStatusCode(400)->setJSON([
+                    'success' => false,
+                    'token'   => csrf_hash(),
+                    'errors'  => ['reason' => $result]
+                ]);
+            }
+
 
             session()->setFlashdata('success', 'Agendamento criado com sucesso!');
 

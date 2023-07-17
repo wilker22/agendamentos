@@ -70,4 +70,19 @@ class ScheduleModel extends MyBaseModel
 
         return $data;
     }
+
+
+    /**
+     * Verifica se a data e horário escolhidos não estão agendados. 
+     * Útil para fazer um último 'check' antes de inserir o registro, pois o usuário pode ficar com a página aberta por bastante tempo.
+     *
+     * @param integer|string $unitId
+     * @param string $chosenDate
+     * @return boolean
+     */
+    public function chosenDateIsFree(int|string $unitId, string $chosenDate): bool
+    {
+
+        return $this->where('unit_id', $unitId)->where('chosen_date', $chosenDate)->first() === null;
+    }
 }
