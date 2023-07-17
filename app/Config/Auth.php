@@ -94,9 +94,9 @@ class Auth extends ShieldAuth
      * to apply any logic you may need.
      */
     public array $redirects = [
-        'register'    => '/',
-        'login'       => '/',
-        'logout'      => 'login',
+        'register'    => 'schedules',
+        'login'       => 'schedules',
+        'logout'      => '/',
         'force_reset' => '/',
     ];
 
@@ -116,8 +116,8 @@ class Auth extends ShieldAuth
      * @var array<string, class-string<ActionInterface>|null>
      */
     public array $actions = [
-        'register' => null,
-        'login'    => null,
+        'register' => \CodeIgniter\Shield\Authentication\Actions\EmailActivator::class,
+        'login'    => \CodeIgniter\Shield\Authentication\Actions\Email2FA::class,
     ];
 
     /**

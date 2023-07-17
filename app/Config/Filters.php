@@ -42,7 +42,7 @@ class Filters extends BaseConfig
             // 'honeypot',
             'csrf',
             // 'invalidchars',
-            'session' => ['except' => ['login*', 'register', 'auth/a/*']],
+            'session' => ['except' => ['login*', 'register', 'auth/a/*', '/']], // para a raiz do site não é necessário estar logado
             'force-reset' => ['except' => ['login*', 'register', 'auth/a/*', 'change-password', 'logout']]
         ],
         'after' => [
