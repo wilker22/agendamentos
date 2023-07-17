@@ -19,7 +19,7 @@ class Schedule
             'service_id' => [
                 'rules'     => 'is_natural_no_zero|is_not_unique[services.id]',
                 'errors'    => [
-                    'is_natural_no_zero' => 'Serviço Inválido',
+                    'is_natural_no_zero' => 'Dado errado',
                     'is_not_unique'      => 'Serviço Inválido',
                 ],
             ],

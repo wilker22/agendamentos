@@ -221,6 +221,10 @@
     let chosenDay = null;
     let chosenHour = null;
 
+    // CSRF CODE PARA ENVIAR NO REQUEST
+    let csrfTokenName = '<?php echo csrf_token(); ?>';
+    let csrfTokenValue = '<?php echo csrf_hash(); ?>';
+
 
     const units = document.getElementsByName('unit_id');
 
@@ -399,12 +403,15 @@
 
         // o que será enviado no request
         const body = {
-            unit_id: unitId,
-            serviceId: serviceId,
-            month: chosenMonth,
-            day: chosenDay,
-            hour: chosenHour
+            unit_id: parseInt(unitId),
+            service_id: parseInt(serviceId),
+            month: parseInt(chosenMonth),
+            day: parseInt(chosenDay),
+            hour: parseInt(chosenHour)
         };
+
+
+        body[csrfTokenName] = csrfTokenValue;
 
 
         const response = await fetch(URL_CREATION_SCHEDULE, {
@@ -424,6 +431,9 @@
 
                 const data = await response.json();
                 const errors = data.errors;
+
+                // atualizo o token do CSRF
+                csrfTokenValue = data.token;
 
                 // tranformo o array de erros em uma string
                 let message = Object.keys(errors).map(field => errors[field]).join(', ');

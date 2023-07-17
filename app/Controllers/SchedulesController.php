@@ -141,6 +141,7 @@ class SchedulesController extends BaseController
 
                 return $this->response->setStatusCode(400)->setJSON([
                     'success' => false,
+                    'token'   => csrf_hash(),
                     'errors'  => $this->validator->getErrors()
                 ]);
             }
