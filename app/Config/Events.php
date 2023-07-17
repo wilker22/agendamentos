@@ -2,6 +2,8 @@
 
 namespace Config;
 
+use App\Entities\Schedule;
+use App\Notifications\NewScheduleNotification;
 use CodeIgniter\Events\Events;
 use CodeIgniter\Exceptions\FrameworkException;
 
@@ -41,8 +43,17 @@ Events::on('pre_system', static function () {
      * --------------------------------------------------------------------
      * If you delete, they will no longer be collected.
      */
-    if (CI_DEBUG && ! is_cli()) {
+    if (CI_DEBUG && !is_cli()) {
         Events::on('DBQuery', 'CodeIgniter\Debug\Toolbar\Collectors\Database::collect');
         Services::toolbar()->respond();
     }
+});
+
+
+/**
+ * Envia o e-mail de notificação de agendamento criado
+ */
+Events::on('schedule_created', static function (string $email, Schedule $schedule) {
+
+    (new NewScheduleNotification(email: $email, schedule: $schedule))->send();
 });

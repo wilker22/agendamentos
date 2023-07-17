@@ -52,7 +52,7 @@ class NewScheduleNotification
             'address'     => $this->schedule->address,
         ];
 
-        $this->service->setMessage(view('Front/Email/shcedule_created', $data));
+        $this->service->setMessage(view('Front/Email/schedule_created', $data));
         $this->service->setMailType('html');
 
         if (!$this->service->send()) {

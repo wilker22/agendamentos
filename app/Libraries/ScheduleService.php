@@ -6,6 +6,7 @@ use App\Entities\Schedule;
 use App\Models\ScheduleModel;
 use App\Models\ServiceModel;
 use App\Models\UnitModel;
+use CodeIgniter\Events\Events;
 use CodeIgniter\I18n\Time;
 use Exception;
 use InvalidArgumentException;
@@ -129,9 +130,11 @@ class ScheduleService
             }
 
             /**
-             * @todo disparar email para o usuário com os dados do agendamento criado
+             * disparar email para o usuário com os dados do agendamento criado
              */
+            Events::trigger('schedule_created', auth()->user()->email, $model->getSchedule(id: $createdId));
 
+            // retornamos true
             return true;
         } catch (\Throwable $th) {
 

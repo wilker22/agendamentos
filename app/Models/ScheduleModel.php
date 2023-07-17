@@ -85,4 +85,27 @@ class ScheduleModel extends MyBaseModel
 
         return $this->where('unit_id', $unitId)->where('chosen_date', $chosenDate)->first() === null;
     }
+
+
+    /**
+     * Recupera o agendamento de acordo com o id
+     *
+     * @param integer|string $id
+     * @return Schedule
+     */
+    public function getSchedule(int|string $id): Schedule
+    {
+
+        $this->select([
+            'schedules.*',
+            'units.name AS unit',
+            'units.address',
+            'services.name AS service',
+        ]);
+
+        $this->join('units', 'units.id = schedules.unit_id');
+        $this->join('services', 'services.id = schedules.service_id');
+
+        return $this->findOrFail($id);
+    }
 }
