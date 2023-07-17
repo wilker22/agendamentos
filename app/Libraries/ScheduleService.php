@@ -2,8 +2,10 @@
 
 namespace App\Libraries;
 
+use App\Models\ScheduleModel;
 use App\Models\ServiceModel;
 use App\Models\UnitModel;
+use Exception;
 use InvalidArgumentException;
 
 class ScheduleService
@@ -79,5 +81,25 @@ class ScheduleService
         }
 
         return form_dropdown(data: 'service', options: $options, selected: [], extra: ['id' => 'service_id', 'class' => 'form-select']);
+    }
+
+    /**
+     * Tenta criar o agendamento do user logado
+     *
+     * @param array $request
+     * @throws Exception
+     * @return boolean|string
+     */
+    public function createSchedule(array $request): bool|string
+    {
+        try {
+
+            $model = model(ScheduleModel::class);
+        } catch (\Throwable $th) {
+
+            log_message('error', '[ERROR] {exception}', ['exception' => $th]);
+
+            return "Internal Server Error";
+        }
     }
 }
