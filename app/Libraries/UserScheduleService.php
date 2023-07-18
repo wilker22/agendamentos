@@ -3,6 +3,8 @@
 namespace App\Libraries;
 
 use App\Models\ScheduleModel;
+use CodeIgniter\Events\Events;
+use Exception;
 
 class UserScheduleService
 {
@@ -88,5 +90,43 @@ class UserScheduleService
             'class'         => 'btn btn-danger mt-4 btn-sm btnCancelSchedule',
             'data-schedule' => $id,
         ], 'Cancelar');
+    }
+
+
+    /**
+     * Processa o cancelamento do agendamento do user logado
+     *
+     * @param integer|string $id
+     * @return boolean
+     */
+    public function cancelUserSchedule(int|string $id): bool
+    {
+        try {
+
+            $where = [
+                'id'       => $id,
+                'user_id'  => auth()->user()->id,
+                'canceled' => 0, // que ainda não foi cancelado
+            ];
+
+            $success = $this->scheduleModel->where($where)->set('canceled', 1)->update();
+
+            if (!$success) {
+
+                throw new Exception("Não foi possível cancelar o agendamento {$id} do usuário");
+            }
+
+            $schedule = $this->scheduleModel->where('user_id', auth()->user()->id)->getSchedule($id);
+
+
+            Events::trigger('schedule_canceled', auth()->user()->email, $schedule);
+
+            return true;
+        } catch (\Throwable $th) {
+
+            log_message('error', '[ERROR] {exception}', ['exception' => $th]);
+
+            return false;
+        }
     }
 }

@@ -111,7 +111,7 @@
 
                 button.innerText = 'Estamos cancelando o seu agendamento...';
 
-                tryCancelUserSchedule();
+                tryCancelUserSchedule(schedule);
 
             });
 
@@ -130,7 +130,7 @@
         boxErrors.innerHTML = '';
 
         const body = {
-            schedule: schedule
+            schedule: parseInt(schedule)
         };
 
         body[csrfTokenName] = csrfTokenValue;

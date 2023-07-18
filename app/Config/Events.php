@@ -3,6 +3,7 @@
 namespace Config;
 
 use App\Entities\Schedule;
+use App\Notifications\CanceledScheduleNotification;
 use App\Notifications\NewScheduleNotification;
 use CodeIgniter\Events\Events;
 use CodeIgniter\Exceptions\FrameworkException;
@@ -56,4 +57,15 @@ Events::on('pre_system', static function () {
 Events::on('schedule_created', static function (string $email, Schedule $schedule) {
 
     (new NewScheduleNotification(email: $email, schedule: $schedule))->send();
+});
+
+
+
+
+/**
+ * Envia o e-mail de notificação de cancelamento de agendamento
+ */
+Events::on('schedule_canceled', static function (string $email, Schedule $schedule) {
+
+    (new CanceledScheduleNotification(email: $email, schedule: $schedule))->send();
 });
