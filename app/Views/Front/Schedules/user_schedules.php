@@ -64,6 +64,17 @@
             headers: setHeadersRequest(),
         });
 
+        if (!response.ok) {
+
+            boxErrors.innerHTML = showErrorMessage('Não foi possível recuperar os agendamentos');
+
+            throw new Error(`HTTP error! Status: ${response.status}`);
+
+            return;
+        }
+
+        const data = await response.json();
+
 
     };
 </script>

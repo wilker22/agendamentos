@@ -95,8 +95,13 @@ $routes->group('schedules', static function ($routes) {
 
 
 
-    // agendamentos do user logado
-    $routes->get('my', [UserSchedulesController::class, 'index'], ['as' => 'schedules.my']);
+    $routes->group('my', static function ($routes) {
+
+        // agendamentos do user logado
+        $routes->get('/', [UserSchedulesController::class, 'index'], ['as' => 'schedules.my']);
+        $routes->get('all', [UserSchedulesController::class, 'all'], ['as' => 'schedules.my.all']); // recupera via fetch API
+        $routes->delete('cancel', [UserSchedulesController::class, 'cancel'], ['as' => 'schedules.my.cancel']); // cancela via fetch API
+    });
 });
 
 

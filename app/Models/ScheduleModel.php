@@ -133,4 +133,33 @@ class ScheduleModel extends MyBaseModel
 
         return array_column($result, 'hour'); // ['07:00', '07:30', 'HH:ss', etc]
     }
+
+
+    /**
+     * Recupera os agendamentos do usuário logado.
+     *
+     * @return array
+     */
+    public function getLoggedUserSchedules(): array
+    {
+        if (!auth()->loggedIn()) {
+
+            return [];
+        }
+
+        $this->select([
+            'schedules.*',
+            'DATE_FORMAT(schedules.chosen_date, "%d/%m/%Y às %H:%i") AS formated_chosen_date', // 23/03/2023 às 15:15
+            'units.name AS unit',
+            'units.address',
+            'services.name AS service',
+        ]);
+
+        $this->join('units', 'units.id = schedules.unit_id');
+        $this->join('services', 'services.id = schedules.service_id');
+        $this->where('schedules.user_id', auth()->user()->id); // do user logado
+        $this->orderBy('schedules.id', 'DESC');
+
+        return $this->findAll();
+    }
 }
