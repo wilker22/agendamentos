@@ -62,16 +62,33 @@
                             <a class="nav-link active" aria-current="page" href="<?php echo route_to('home'); ?>">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Link</a>
+                            <a class="nav-link" href="<?php echo route_to('schedules.new'); ?>">Criar agendamentos</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                            <a class="nav-link disabled" href="<?php echo route_to('schedules.my'); ?>">Meus agendamentos</a>
                         </li>
                     </ul>
-                    <form class="d-flex">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-outline-success" type="submit">Search</button>
-                    </form>
+                    <div class="d-flex">
+
+                        <ul class="navbar-nav me-auto mb-2 mb-md-0">
+
+                            <?php if (auth()->loggedIn()) : ?>
+
+                                <li class="nav-item">
+                                    <a class="nav-link active" aria-current="page" href="<?php echo route_to('logout'); ?>">Sair</a>
+                                </li>
+
+                            <?php else : ?>
+
+                                <li class="nav-item">
+                                    <a class="nav-link" href="<?php echo route_to('login'); ?>">Entrar | Registrar-se</a>
+                                </li>
+
+                            <?php endif; ?>
+
+                        </ul>
+
+                    </div>
                 </div>
             </div>
         </nav>
