@@ -404,9 +404,9 @@
         const body = {
             unit_id: parseInt(unitId),
             service_id: parseInt(serviceId),
-            month: parseInt(chosenMonth),
-            day: parseInt(chosenDay),
-            hour: parseInt(chosenHour)
+            month: chosenMonth,
+            day: chosenDay,
+            hour: chosenHour
         };
 
 
