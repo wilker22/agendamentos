@@ -49,6 +49,9 @@
 <script>
     const URL_GET_USER_SCHEDULES = '<?php echo route_to('schedules.my.all'); ?>';
     const URL_CANCEL_USER_SCHEDULES = '<?php echo route_to('schedules.my.cancel'); ?>';
+    // CSRF CODE PARA ENVIAR NO REQUEST
+    let csrfTokenName = '<?php echo csrf_token(); ?>';
+    let csrfTokenValue = '<?php echo csrf_hash(); ?>';
 
     const boxSuccess = document.getElementById('boxSuccess');
     const boxErrors = document.getElementById('boxErrors');
@@ -115,6 +118,55 @@
 
 
         });
+
+    };
+
+
+
+    // cancela o agendamento
+    const tryCancelUserSchedule = async (schedule) => {
+
+        boxSuccess.innerHTML = '';
+        boxErrors.innerHTML = '';
+
+        const body = {
+            schedule: schedule
+        };
+
+        body[csrfTokenName] = csrfTokenValue;
+
+
+        const response = await fetch(URL_CANCEL_USER_SCHEDULES, {
+            method: "delete",
+            headers: setHeadersRequest(),
+            body: JSON.stringify(body),
+        });
+
+        if (!response.ok) {
+
+            boxErrors.innerHTML = showErrorMessage('Não foi possível cancelar o agendamento');
+
+            throw new Error(`HTTP error! Status: ${response.status}`);
+
+            return;
+        }
+
+
+        const data = await response.json();
+
+
+        // atualizo o token do CSRF
+        csrfTokenValue = data.token;
+
+        // tudo certo...
+        boxSuccess.innerHTML = `<div class="alert alert-success alert-dismissible fade show" role="alert">
+                                    Agendameto cancelado.
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>`;
+
+
+        // recuperamos novamente os agendamentos
+        getUserSchedules();
 
     };
 

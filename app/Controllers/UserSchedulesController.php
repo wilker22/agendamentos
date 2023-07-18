@@ -62,4 +62,30 @@ class UserSchedulesController extends BaseController
             $this->response->setStatusCode(500);
         }
     }
+
+
+    /**
+     * Recupera os agendamentos do usuário logado.
+     *
+     * @return ResponseInterface
+     */
+    public function cancel()
+    {
+
+        try {
+
+            $this->checkMethod('ajax');
+
+
+            return $this->response->setJSON([
+                'success' => true,
+                'token'   => csrf_hash(),
+            ]);
+        } catch (\Throwable $th) {
+
+            log_message('error', '[ERROR] {exception}', ['exception' => $th]);
+
+            $this->response->setStatusCode(500);
+        }
+    }
 }
