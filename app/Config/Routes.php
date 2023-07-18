@@ -8,6 +8,7 @@ use App\Controllers\Super\HomeController;
 use App\Controllers\Super\ServicesController;
 use App\Controllers\Super\UnitsController;
 use App\Controllers\Super\UnitsServicesController;
+use App\Controllers\UserSchedulesController;
 
 // Create a new instance of our RouteCollection class.
 $routes = Services::routes();
@@ -91,6 +92,11 @@ $routes->group('schedules', static function ($routes) {
     $routes->get('calendar', [SchedulesController::class, 'getCalendar'], ['as' => 'get.calendar']); // recuperamos via fetch API o calendário para o mês desejado
     $routes->get('hours', [SchedulesController::class, 'getHours'], ['as' => 'get.hours']); // recuperamos via fetch API os horários disponíveis
     $routes->post('create', [SchedulesController::class, 'createSchedule'], ['as' => 'create.schedule']); // criamos o agendamento via fetch API
+
+
+
+    // agendamentos do user logado
+    $routes->get('my', [UserSchedulesController::class, 'index'], ['as' => 'schedules.my']);
 });
 
 

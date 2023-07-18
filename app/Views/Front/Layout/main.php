@@ -65,7 +65,7 @@
                             <a class="nav-link" href="<?php echo route_to('schedules.new'); ?>">Criar agendamentos</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link disabled" href="<?php echo route_to('schedules.my'); ?>">Meus agendamentos</a>
+                            <a class="nav-link" href="<?php echo route_to('schedules.my'); ?>">Meus agendamentos</a>
                         </li>
                     </ul>
                     <div class="d-flex">
