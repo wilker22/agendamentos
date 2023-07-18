@@ -33,7 +33,6 @@
 
     <div id="boxUserSchedules" class="mb-4 mt-3">
 
-        <?php echo $agendamentos; ?>
 
     </div>
 
@@ -56,6 +55,7 @@
     const boxUserSchedules = document.getElementById('boxUserSchedules');
 
 
+    // recupera os agendamentos do user logado
     const getUserSchedules = async () => {
 
 
@@ -77,8 +77,52 @@
 
         const data = await response.json();
 
+        boxUserSchedules.innerHTML = data.schedules;
+
+
+        const buttonsCancelSchedule = document.querySelectorAll('.btnCancelSchedule');
+
+
+        buttonsCancelSchedule.forEach(button => {
+
+
+            button.addEventListener('click', (event) => {
+
+                const schedule = event.target.dataset.schedule;
+
+                if (!schedule) {
+
+                    boxErrors.innerHTML = showErrorMessage('Não conseguimos identificar o agendamento');
+                    return;
+                }
+
+                const result = confirm('Tem certeza do cancelamento? \n Essa ação não poderá ser desfeita.');
+
+
+                if (!result) {
+
+                    return;
+                }
+
+                button.disabled = true;
+
+                button.innerText = 'Estamos cancelando o seu agendamento...';
+
+                tryCancelUserSchedule();
+
+            });
+
+
+
+        });
 
     };
+
+
+    window.addEventListener('load', () => {
+
+        getUserSchedules();
+    });
 </script>
 
 

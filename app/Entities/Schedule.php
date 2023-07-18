@@ -26,12 +26,12 @@ class Schedule extends Entity
 
         if ($this->finished) {
 
-            return "Finalizado em {$$this->updatedAt()}";
+            return "Finalizado em {$this->updatedAt()}";
         }
 
         if ($this->canceled) {
 
-            return "Cancelado em {$$this->updatedAt()}";
+            return "Cancelado em {$this->updatedAt()}";
         }
 
         $isBefore = Time::parse($this->chosen_date)->isBefore(Time::now());
