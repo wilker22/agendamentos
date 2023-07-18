@@ -31,7 +31,6 @@ class SchedulesController extends BaseController
     public function index()
     {
 
-
         $data = [
             'title'  => 'Criar agendamento',
             'units'  => $this->scheduleService->renderUnits(),

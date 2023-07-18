@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use App\Entities\Schedule;
-use App\Entities\Service;
 use Exception;
 
 class ScheduleModel extends MyBaseModel
@@ -107,5 +106,31 @@ class ScheduleModel extends MyBaseModel
         $this->join('services', 'services.id = schedules.service_id');
 
         return $this->findOrFail($id);
+    }
+
+
+    /**
+     * Recupera os agendamentos não finalizados de acordo com a unidade.
+     *
+     * @param integer|string $unitId
+     * @param string $dateWanted Exemplo: 2023-11-29
+     * @return array horas. Exemplo: ['07:00', '07:30', 'HH:ss', etc]
+     */
+    public function getScheduledHoursByDate(int|string $unitId, string $dateWanted): array
+    {
+
+        $this->select('DATE_FORMAT(chosen_date, "%H:%i") AS hour'); // terei: 15:10
+        $this->where('unit_id', $unitId);
+        $this->where('finished', 0); // agendamento em aberto
+        $this->where('DATE_FORMAT(chosen_date, "%Y-%m-%d")', $dateWanted); // apenas de acordo com a data desejada
+
+        $result = $this->findAll();
+
+        if (empty($result)) {
+
+            return [];
+        }
+
+        return array_column($result, 'hour'); // ['07:00', '07:30', 'HH:ss', etc]
     }
 }
