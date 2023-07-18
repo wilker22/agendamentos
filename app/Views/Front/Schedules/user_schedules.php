@@ -33,6 +33,8 @@
 
     <div id="boxUserSchedules" class="mb-4 mt-3">
 
+        <?php echo $agendamentos; ?>
+
     </div>
 
 
