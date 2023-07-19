@@ -99,6 +99,7 @@ class UnitService extends MyBaseService
         $btnActions .= '<div class="dropdown-menu">';
         $btnActions .= anchor(route_to('units.edit', $unit->id), 'Editar', ['class' => 'dropdown-item']);
         $btnActions .= anchor(route_to('units.services', $unit->id), 'Serviços', ['class' => 'dropdown-item']);
+        $btnActions .= anchor(route_to('units.schedules', $unit->id), 'Agendamentos', ['class' => 'dropdown-item']);
         $btnActions .= view_cell(
             library: 'ButtonsCell::action',
             params: [

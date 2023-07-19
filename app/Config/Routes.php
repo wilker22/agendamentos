@@ -61,6 +61,8 @@ $routes->group('super', ['filter' => 'group:superadmin'], static function ($rout
         $routes->put('update/(:num)', [UnitsController::class, 'update/$1'], ['as' => 'units.update']);
         $routes->put('action/(:num)', [UnitsController::class, 'action/$1'], ['as' => 'units.action']); // ativa / desativa um registro
         $routes->delete('destroy/(:num)', [UnitsController::class, 'destroy/$1'], ['as' => 'units.destroy']);
+        $routes->get('schedules/(:num)', [UnitsController::class, 'schedules/$1'], ['as' => 'units.schedules']);
+
 
 
         // rotas dos serviços da unidade

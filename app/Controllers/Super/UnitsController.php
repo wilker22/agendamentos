@@ -170,4 +170,22 @@ class UnitsController extends BaseController
 
         return redirect()->route('units')->with('success', 'Sucesso!');
     }
+
+
+    /**
+     * Renderiza a view para gerir os agendamentos da unidade
+     *
+     * @param integer $id
+     * @return RendererInterface
+     */
+    public function schedules(int $id)
+    {
+
+        $data = [
+            'title'         => 'Gerenciar os agendamentos da unidade',
+            'unit'          => $unit = $this->unitModel->findOrFail($id),
+        ];
+
+        return view('Back/Units/schedules', $data);
+    }
 }
