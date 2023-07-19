@@ -74,9 +74,18 @@
 
                             <?php if (auth()->loggedIn()) : ?>
 
+                                <?php if (auth()->user()->inGroup('superadmin')) : ?>
+
+                                    <li class="nav-item">
+                                        <a class="nav-link" aria-current="page" href="<?php echo route_to('super.home'); ?>">Admin</a>
+                                    </li>
+
+                                <?php endif; ?>
+
                                 <li class="nav-item">
-                                    <a class="nav-link active" aria-current="page" href="<?php echo route_to('logout'); ?>">Sair</a>
+                                    <a class="nav-link" aria-current="page" href="<?php echo route_to('logout'); ?>">Sair</a>
                                 </li>
+
 
                             <?php else : ?>
 

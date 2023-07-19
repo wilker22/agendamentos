@@ -70,6 +70,17 @@
                     <span>Serviços</span></a>
             </li>
 
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item">
+                <a class="nav-link" href="<?php echo route_to('home'); ?>">
+                    <i class="fas fa-fw fa-home"></i>
+                    <span>Agendamentos</span></a>
+            </li>
+
 
 
 
