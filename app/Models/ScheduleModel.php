@@ -162,4 +162,33 @@ class ScheduleModel extends MyBaseModel
 
         return $this->findAll();
     }
+
+
+
+    /**
+     * Recupera os agendamentos da unidade
+     *
+     * @param integer|string $unitId
+     * @return array
+     */
+    public function getUnitSchedules(int|string $unitId): array
+    {
+
+        $this->select([
+            'schedules.*',
+            'DATE_FORMAT(schedules.chosen_date, "%d/%m/%Y às %H:%i") AS formated_chosen_date', // 23/03/2023 às 15:15
+            'units.name AS unit',
+            'units.address',
+            'services.name AS service',
+            'users.username AS user',
+        ]);
+
+        $this->join('units', 'units.id = schedules.unit_id');
+        $this->join('services', 'services.id = schedules.service_id');
+        $this->join('users', 'users.id = schedules.user_id');
+        $this->where('schedules.unit_id', $unitId);
+        $this->orderBy('schedules.id', 'DESC');
+
+        return $this->findAll();
+    }
 }

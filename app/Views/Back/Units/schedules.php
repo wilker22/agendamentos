@@ -25,8 +25,11 @@
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary"><?php echo $title; ?></h6>
+            <a href="<?php echo route_to('units'); ?>" class="btn btn-sm btn-secondary mt-3">Voltar</a>
         </div>
         <div class="card-body">
+
+            <?php echo $schedules; ?>
 
         </div>
     </div>

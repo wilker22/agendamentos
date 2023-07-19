@@ -182,8 +182,9 @@ class UnitsController extends BaseController
     {
 
         $data = [
-            'title'         => 'Gerenciar os agendamentos da unidade',
-            'unit'          => $unit = $this->unitModel->findOrFail($id),
+            'title'     => 'Gerenciar os agendamentos da unidade',
+            'unit'      => $unit = $this->unitModel->findOrFail($id),
+            'schedules' => $this->unitService->renderUnitSchedules($unit->id)
         ];
 
         return view('Back/Units/schedules', $data);

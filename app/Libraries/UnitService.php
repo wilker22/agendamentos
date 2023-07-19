@@ -3,6 +3,7 @@
 namespace App\Libraries;
 
 use App\Entities\Unit;
+use App\Models\ScheduleModel;
 use App\Models\UnitModel;
 use CodeIgniter\Config\Factories;
 
@@ -77,6 +78,42 @@ class UnitService extends MyBaseService
 
 
         return form_dropdown(data: 'servicetime', options: $options, selected: old('servicetime', $serviceTime), extra: ['class' => 'form-control']);
+    }
+
+
+    /**
+     * Renderiza uma lista não ordenada HTML dos agendamentos da unidade
+     *
+     * @param integer|string $unitId
+     * @return string
+     */
+    public function renderUnitSchedules(int|string $unitId): string
+    {
+        // buscamos os agendamentos
+        $schedules = model(ScheduleModel::class)->getUnitSchedules($unitId);
+
+        if (empty($schedules)) {
+
+            return self::TEXT_FOR_NO_DATA;
+        }
+
+
+        $list = [];
+
+        foreach ($schedules as $schedule) {
+
+            $list[] = "<p>
+                          <strong>Unidade: </strong>{$schedule->unit} <br>
+                          <strong>Endereço: </strong>{$schedule->address} <br>
+                          <strong>Serviço: </strong> {$schedule->service}<br>
+                          <strong>Situação: </strong> {$schedule->situation()}<br>
+                          <strong>Usuário: </strong> {$schedule->user}<br>
+                        </p>";
+        }
+
+
+        // retorno a lista HTML 
+        return ul($list);
     }
 
 
