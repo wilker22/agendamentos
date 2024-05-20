@@ -3,7 +3,6 @@
 namespace App\Controllers;
 
 use CodeIgniter\Controller;
-use CodeIgniter\Exceptions\PageNotFoundException;
 use CodeIgniter\HTTP\CLIRequest;
 use CodeIgniter\HTTP\IncomingRequest;
 use CodeIgniter\HTTP\RequestInterface;
@@ -36,7 +35,7 @@ abstract class BaseController extends Controller
      *
      * @var array
      */
-    protected $helpers = ['form', 'general', 'html'];
+    protected $helpers = [];
 
     /**
      * Be sure to declare properties for any property fetch you initialized.
@@ -45,53 +44,15 @@ abstract class BaseController extends Controller
     // protected $session;
 
     /**
-     * Constructor.
+     * @return void
      */
     public function initController(RequestInterface $request, ResponseInterface $response, LoggerInterface $logger)
     {
-        $this->helpers = array_merge($this->helpers, ['setting']);
-
         // Do Not Edit This Line
         parent::initController($request, $response, $logger);
 
         // Preload any models, libraries, etc, here.
 
         // E.g.: $this->session = \Config\Services::session();
-    }
-
-
-    /**
-     * Valida se a requisição é realmente do tipo informado: post/put/delete/ajax
-     *
-     * @param string $method
-     * @throws PageNotFoundException
-     * @return boolean
-     */
-    protected function checkMethod(string $method): bool
-    {
-        $method = strtolower($method);
-
-        if (!$this->request->is($method)) {
-
-            throw new PageNotFoundException("Página não encontrada");
-        }
-
-        return true;
-    }
-
-
-    /**
-     * Remove do post a posição '_method' do spoofing, pois estamos trabalhando com roteamento RESTful.
-     *
-     * @return array
-     */
-    protected function clearRequest(): array
-    {
-
-        $data = $this->request->getPost();
-
-        unset($data['_method']);
-
-        return $data;
     }
 }

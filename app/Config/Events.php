@@ -2,11 +2,9 @@
 
 namespace Config;
 
-use App\Entities\Schedule;
-use App\Notifications\CanceledScheduleNotification;
-use App\Notifications\NewScheduleNotification;
 use CodeIgniter\Events\Events;
 use CodeIgniter\Exceptions\FrameworkException;
+use CodeIgniter\HotReloader\HotReloader;
 
 /*
  * --------------------------------------------------------------------
@@ -44,28 +42,14 @@ Events::on('pre_system', static function () {
      * --------------------------------------------------------------------
      * If you delete, they will no longer be collected.
      */
-    if (CI_DEBUG && !is_cli()) {
+    if (CI_DEBUG && ! is_cli()) {
         Events::on('DBQuery', 'CodeIgniter\Debug\Toolbar\Collectors\Database::collect');
         Services::toolbar()->respond();
+        // Hot Reload route - for framework use on the hot reloader.
+        if (ENVIRONMENT === 'development') {
+            Services::routes()->get('__hot-reload', static function () {
+                (new HotReloader())->run();
+            });
+        }
     }
-});
-
-
-/**
- * Envia o e-mail de notificação de agendamento criado
- */
-Events::on('schedule_created', static function (string $email, Schedule $schedule) {
-
-    (new NewScheduleNotification(email: $email, schedule: $schedule))->send();
-});
-
-
-
-
-/**
- * Envia o e-mail de notificação de cancelamento de agendamento
- */
-Events::on('schedule_canceled', static function (string $email, Schedule $schedule) {
-
-    (new CanceledScheduleNotification(email: $email, schedule: $schedule))->send();
 });
