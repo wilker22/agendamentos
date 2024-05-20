@@ -28,7 +28,7 @@ class CreateTableUnits extends Migration
                 'constraint' => 14,
                 'comment' => '(99)99999-9999'
             ],
-            'cordinator' => [
+            'coordinator' => [
                 'type' => 'TEXT',
                 'constraint' => 100,
                 'comment' => 'Coordenador'
