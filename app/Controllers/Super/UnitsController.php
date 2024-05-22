@@ -3,6 +3,7 @@
 namespace App\Controllers\Super;
 
 use App\Controllers\BaseController;
+use App\Models\UnitModel;
 
 class UnitsController extends BaseController
 {
@@ -10,7 +11,13 @@ class UnitsController extends BaseController
     {
         $data = [
             'title' => 'Unidades',
+            'units' => model(UnitModel::class)->findAll()
         ];
+
+
+
+        // dd($units);
+
 
         return view('Back/Units/index', $data);
     }
