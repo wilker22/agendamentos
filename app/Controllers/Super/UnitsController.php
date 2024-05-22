@@ -11,13 +11,19 @@ class UnitsController extends BaseController
     {
         $data = [
             'title' => 'Unidades',
-            'units' => model(UnitModel::class)->findAll()
+
         ];
 
+        $units = model(UnitModel::class)->findAll();
 
+        $table = new \CodeIgniter\View\Table();
+        $table->setHeading('Nome', 'Email', 'Telefone', 'Início', 'Fim', 'Criado');
 
-        // dd($units);
+        foreach ($units as $unit) {
+            $table->addRow([$unit->name, $unit->email, $unit->phone, $unit->starttime, $unit->endtime, $unit->created_at]);
+        }
 
+        $data['units'] = $table->generate();;
 
         return view('Back/Units/index', $data);
     }

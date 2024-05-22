@@ -26,32 +26,7 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                    <thead>
-                        <tr>
-                            <th>Nome</th>
-                            <th>E-mail</th>
-                            <th>Telefone</th>
-                            <th>Início</th>
-                            <th>Fim </th>
-                            <th>Criado</th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        <?php foreach ($units as $unit) : ?>
-                            <tr>
-                                <td><?php echo $unit->name ?></td>
-                                <td><?php echo $unit->email ?></td>
-                                <td><?php echo $unit->phone ?></td>
-                                <td><?php echo $unit->starttime ?></td>
-                                <td><?php echo $unit->endtime ?></td>
-                                <td><?php echo $unit->created_at ?></td>
-                            </tr>
-                        <?php endforeach ?>
-
-                    </tbody>
-                </table>
+                <?php echo $units ?>
             </div>
         </div>
     </div>
