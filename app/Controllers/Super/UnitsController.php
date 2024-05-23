@@ -3,28 +3,45 @@
 namespace App\Controllers\Super;
 
 use App\Controllers\BaseController;
+use App\Libraries\UnitService;
 use App\Models\UnitModel;
+use CodeIgniter\Config\Factories;
 
 class UnitsController extends BaseController
 {
+
+    private UnitService $unitService;
+    private UnitModel $unitModel;
+
+    public function __construct()
+    {
+        $this->unitService = Factories::class(UnitService::class);
+        $this->unitModel = model(UnitModel::class);
+    }
+
     public function index()
     {
         $data = [
             'title' => 'Unidades',
+            'units' => $this->unitService->renderUnits()
 
         ];
 
         $units = model(UnitModel::class)->findAll();
 
-        $table = new \CodeIgniter\View\Table();
-        $table->setHeading('Nome', 'Email', 'Telefone', 'Início', 'Fim', 'Criado');
-
-        foreach ($units as $unit) {
-            $table->addRow([$unit->name, $unit->email, $unit->phone, $unit->starttime, $unit->endtime, $unit->created_at]);
-        }
-
-        $data['units'] = $table->generate();;
-
         return view('Back/Units/index', $data);
+    }
+
+    public function edit(int $id)
+    {
+        //$this->checkMethod($request->method);
+
+        $data = [
+            'title' => 'Editar Unidade',
+            'unit' => $this->unitModel->findOrFail($id)
+
+        ];
+
+        return view('Back/Units/edit', $data);
     }
 }

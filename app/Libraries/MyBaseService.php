@@ -8,6 +8,7 @@ use CodeIgniter\View\Table as HTMLTable;
 class MyBaseService
 {
     protected HTMLTable $htmlTable;
+    public const TEXT_FOR_NO_DATA =  '<div class="text-info">Não há dados para serem exibidos!</div>';
 
     public function __construct()
     {
