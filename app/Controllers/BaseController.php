@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use CodeIgniter\Controller;
+use CodeIgniter\Exceptions\PageNotFoundException;
 use CodeIgniter\HTTP\CLIRequest;
 use CodeIgniter\HTTP\IncomingRequest;
 use CodeIgniter\HTTP\RequestInterface;
@@ -35,7 +36,7 @@ abstract class BaseController extends Controller
      *
      * @var array
      */
-    protected $helpers = ['form'];
+    protected $helpers = ['form', 'general'];
 
     /**
      * Be sure to declare properties for any property fetch you initialized.
@@ -62,9 +63,16 @@ abstract class BaseController extends Controller
 
         if (!$this->request->is($method)) {
 
-            return $this->response->setStatusCode(405)->setBody('Method Not Allowed');
+            throw new PageNotFoundException("Página não contrada");
         }
 
         return true;
+    }
+
+    protected function clearRequest(): array
+    {
+        $data = $this->request->getPost();
+        unset($data['_method']);
+        return $data;
     }
 }

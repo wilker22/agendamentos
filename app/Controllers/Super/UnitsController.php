@@ -38,10 +38,33 @@ class UnitsController extends BaseController
 
         $data = [
             'title' => 'Editar Unidade',
-            'unit' => $this->unitModel->findOrFail($id)
+            'unit' => $unit = $this->unitModel->findOrFail($id),
+            'timesInterval' => $this->unitService->renderTimesInterval($unit->servicetime)
 
         ];
 
         return view('Back/Units/edit', $data);
+    }
+
+    public function update(int $id)
+    {
+        $this->checkMethod('put');
+        $unit = $this->unitModel->findOrFail($id);
+        $unit->fill($this->clearRequest());
+
+        if (!$unit->hasChanged()) {
+            return redirect()->back()->with('info', 'Não há dados para atualizar');
+        }
+
+        $success = $this->unitModel->save($unit);
+
+        if (!$success) {
+            return redirect()->back()
+                ->withInput()
+                ->with('danger', 'Verifique os erros e tente novamente!')
+                ->with('errorsValidation', $this->unitModel->errors());
+        }
+
+        return redirect()->route('units')->with('success', 'Dados atualizados com sucesso!');
     }
 }

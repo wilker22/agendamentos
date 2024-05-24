@@ -38,8 +38,25 @@ class UnitModel extends Model
     protected $deletedField  = 'deleted_at';
 
     // Validation
-    protected $validationRules      = [];
-    protected $validationMessages   = [];
+    protected $validationRules      = [
+        'id' => 'permit_empty|is_natural_no_zero',
+        'name' => 'required|max_length[100]|is_unique[units.name,id, {id}]',
+        'phone' => 'required|exact_length[14]|is_unique[units.phone,id, {id}]',
+        'email' => 'required|valid_email|max_length[99]|is_unique[units.email,id, {id}]',
+        'coordinator' => 'required|max_length[99]',
+        'address' => 'required|max_length[255]',
+        'starttime' => 'required',
+        'endtime' => 'required',
+        'servicetime' => 'required'
+    ];
+
+    protected $validationMessages   = [
+        'name' => [
+            'required' => 'Obrigatório!',
+            'max_length' => 'Máximo de 99 caracteres',
+            'unique' => 'Já existe registro com esses dados!'
+        ]
+    ];
     protected $skipValidation       = false;
     protected $cleanValidationRules = true;
 

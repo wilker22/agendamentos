@@ -7,6 +7,16 @@ use App\Models\UnitModel;
 
 class UnitService extends MyBaseService
 {
+
+    private static $serviceTimes = [
+        '10 minutes' => '10 minutos',
+        '15 minutes' => '15 minutos',
+        '30 minutes' => '30 minutos',
+        '1 hour' => 'Uma hora',
+        '2 hour' => 'Duas horas',
+
+    ];
+
     public function renderUnits(): string
     {
         $units = model(UnitModel::class)->orderBy('name', 'ASC')->findAll();
@@ -29,6 +39,23 @@ class UnitService extends MyBaseService
 
             return $this->htmlTable->generate();
         }
+    }
+
+    public function renderTimesInterval(?string $serviceTime = null): string
+    {
+        $options = [];
+        $options[''] = '---Escolha---';
+
+        foreach (self::$serviceTimes as $key => $time) {
+            $options[$key] = $time;
+        }
+
+        return form_dropdown(
+            data: 'servicetime',
+            options: $options,
+            selected: old('servicetime', $serviceTime),
+            extra: ['class' => 'form-control']
+        );
     }
 
     private function renderBtnActions(Unit $unit): string
