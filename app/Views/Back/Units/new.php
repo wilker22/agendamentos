@@ -16,13 +16,15 @@
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary"><?php echo $title ?? 'Home'; ?></h6>
-            <a href="<?= base_url(route_to('units.new')) ?>" class="btn btn-success float-right">Nova</a>
+            <h6 class="m-0 font-weight-bold text-primary"><?php echo $title; ?></h6>
+
         </div>
         <div class="card-body">
-            <div class="table-responsive">
-                <?php echo $units ?>
-            </div>
+            <?php echo form_open(route_to('units.create')); ?>
+
+            <?php echo $this->include('Back/Units/_form'); ?>
+
+            <?php echo form_close() ?>
         </div>
     </div>
 

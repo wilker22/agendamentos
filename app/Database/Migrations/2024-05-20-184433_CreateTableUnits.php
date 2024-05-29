@@ -68,13 +68,13 @@ class CreateTableUnits extends Migration
             'created_at' => [
                 'type' => 'DATETIME',
                 'null' => true,
-                'default' => null
+
 
             ],
             'updated_at' => [
                 'type' => 'DATETIME',
                 'null' => true,
-                'default' => null
+
 
             ],
         ]);
