@@ -401,7 +401,11 @@
     <!-- Page level custom scripts -->
     <script src="<?php echo base_url('back/') ?>js/demo/datatables-demo.js"></script>
 
+    <script src="<?php echo base_url('back/mask/') ?>jquery.mask.min.js"></script>
+    <script src="<?php echo base_url('back/mask/') ?>app.js"></script>
+
     <?php echo $this->renderSection('js') ?>
+
 
 </body>
 

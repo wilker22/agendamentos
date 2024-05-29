@@ -7,7 +7,7 @@
 
     <div class="form-group col-md-4">
         <label for="phone">Telefone</label>
-        <input type="text" class="form-control" name="phone" id="phone" value="<?php echo old('phone', $unit->phone) ?>" aria-describedby="nameHelp" placeholder="Telefone">
+        <input type="text" class="form-control phone_with_ddd" name="phone" id="phone" value="<?php echo old('phone', $unit->phone) ?>" aria-describedby="nameHelp" placeholder="Telefone">
         <?php echo show_error_input('phone'); ?>
     </div>
 
