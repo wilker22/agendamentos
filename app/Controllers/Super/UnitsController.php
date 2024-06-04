@@ -107,11 +107,11 @@ class UnitsController extends BaseController
         return redirect()->route('units')->with('success', 'Ação realizada com sucesso!');
     }
 
-    // public function destroy(int $id)
-    // {
-    //     $this->checkMethod('delete');
-    //     $unit = $this->unitModel->findOrFail($id);
-    //     $this->unitModel->delete($unit->id);
-    //     return redirect()->route('units')->with('success', 'Removido com sucesso!');
-    // }
+    public function destroy(int $id)
+    {
+        $this->checkMethod('delete');
+        $unit = $this->unitModel->findOrFail($id);
+        $this->unitModel->delete($unit->id);
+        return redirect()->route('units')->with('success', 'Removido com sucesso!');
+    }
 }
