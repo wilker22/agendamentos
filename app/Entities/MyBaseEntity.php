@@ -12,7 +12,7 @@ class MyBaseEntity extends Entity
         'active' => 'boolean'
     ];
 
-    public function isActivated () : boolean 
+    public function isActivated () 
     {
         return $this->active;
     }
