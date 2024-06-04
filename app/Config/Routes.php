@@ -19,7 +19,7 @@ $routes->group('super', static function ($routes) {
         $routes->post('create', [UnitsController::class, 'create'], ['as' => 'units.create']);
         $routes->get('edit/(:num)', [UnitsController::class, 'edit/$1'], ['as' => 'units.edit']);
         $routes->put('update/(:num)', [UnitsController::class, 'update/$1'], ['as' => 'units.update']);
-        $routes->put('action/(:num)', [UnitsController::class, 'action/$1'], ['as' => 'units.action']);//ativa e desativa o badge
+        $routes->put('action/(:num)', [UnitsController::class, 'action/$1'], ['as' => 'units.action']);//ativa e desativa o badgE
         $routes->delete('destroy/(:num)', [UnitsController::class, 'destroy/$1'], ['as' => 'units.destroy']);
     });
 });
