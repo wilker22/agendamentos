@@ -71,9 +71,12 @@ class UnitModel extends Model
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
 
+
+
     protected function escapeData(array $data)
     {
-        if(!isset($data['data'])){
+        if (!isset($data['data'])) {
+
             return $data;
         }
 

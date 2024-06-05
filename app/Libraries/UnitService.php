@@ -24,7 +24,9 @@ class UnitService extends MyBaseService
         if (empty($units)) {
             return self::TEXT_FOR_NO_DATA;
         } else {
-            $this->htmlTable->setHeading('Ações', 'Nome', 'Email', 'Telefone', 'Início', 'Fim', 'Status', 'Criado' );
+
+            $this->htmlTable->setHeading('Ações', 'Nome', 'Email', 'Telefone', 'Início', 'Fim', 'Status', 'Criado');
+
             foreach ($units as $unit) {
                 $this->htmlTable->addRow([
                     $this->renderBtnActions($unit),
@@ -62,7 +64,7 @@ class UnitService extends MyBaseService
     private function renderBtnActions(Unit $unit): string
     {
 
-        $btnActions  = '<div class="btn-group dropup">';
+        $btnActions  = '<div class="btn-group">';
         $btnActions .= '<button type="button" 
                                 class="btn btn-outline-primary btn-sm dropdown-toggle" 
                                 data-toggle="dropdown" 
@@ -72,18 +74,25 @@ class UnitService extends MyBaseService
                             </button>';
         $btnActions .= '<div class="dropdown-menu">';
         $btnActions .= anchor(route_to('units.edit', $unit->id), 'Editar', ['class' => 'dropdown-item']);
-        $btnActions .= view_cell(library:'ButtonsCell::destroy', 
-                                 params: [
-                                    'route'         => route_to('units.action', $unit->id),
-                                    'text_action'   => $unit->textToAction(),
-                                    'activated'     => $unit->isActivated(), 
-                                    'btn_class'     => 'dropdowm-item py-2'
-                                ]);
-        $btnActions .= view_cell(library:'ButtonsCell::action', 
-                                params: [
-                                    'route'         => route_to('units.destroy', $unit->id),
-                                    'btn_class'     => 'dropdowm-item py-2'
-                                ]);
+
+        $btnActions .= view_cell(
+            library: 'ButtonsCell::action',
+            params: [
+                'route'         => route_to('units.action', $unit->id),
+                'text_action'   => $unit->textToAction(),
+                'activated'     => $unit->isActivated(),
+                'btn_class'     => 'dropdown-item py-2'
+            ]
+        );
+        $btnActions .= view_cell(
+            library: 'ButtonsCell::destroy',
+            params: [
+                'route'         => route_to('units.destroy', $unit->id),
+                'btn_class'     => 'dropdown-item py-2'
+            ]
+        );
+
+
         $btnActions .= '</div></div>';
 
         return $btnActions;
