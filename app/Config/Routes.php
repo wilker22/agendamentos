@@ -1,6 +1,7 @@
 <?php
 
 use App\Controllers\Super\HomeController;
+use App\Controllers\Super\ServicesController;
 use App\Controllers\Super\UnitsController;
 use CodeIgniter\Router\RouteCollection;
 
@@ -23,5 +24,17 @@ $routes->group('super', static function ($routes) {
         $routes->put('action/(:num)', [UnitsController::class, 'action/$1'], ['as' => 'units.action']);
 
         $routes->delete('destroy/(:num)', [UnitsController::class, 'destroy/$1'], ['as' => 'units.destroy']);
+    });
+
+    $routes->group('services', static function ($routes) {
+        $routes->get('/', [ServicesController::class, 'index'], ['as' => 'services']);
+        $routes->get('new', [ServicesController::class, 'new'], ['as' => 'services.new']);
+        $routes->post('create', [ServicesController::class, 'create'], ['as' => 'services.create']);
+        $routes->get('edit/(:num)', [ServicesController::class, 'edit/$1'], ['as' => 'services.edit']);
+        $routes->put('update/(:num)', [ServicesController::class, 'update/$1'], ['as' => 'services.update']);
+
+        $routes->put('action/(:num)', [ServicesController::class, 'action/$1'], ['as' => 'services.action']);
+
+        $routes->delete('destroy/(:num)', [ServicesController::class, 'destroy/$1'], ['as' => 'services.destroy']);
     });
 });

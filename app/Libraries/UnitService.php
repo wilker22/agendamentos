@@ -36,7 +36,7 @@ class UnitService extends MyBaseService
                     $unit->starttime,
                     $unit->endtime,
                     $unit->status(),
-                    $unit->created_at
+                    $unit->createdAt()
                 ]);
             }
 
