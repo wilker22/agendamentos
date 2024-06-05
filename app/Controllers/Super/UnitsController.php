@@ -104,7 +104,9 @@ class UnitsController extends BaseController
         $unit = $this->unitModel->findOrFail($id);
         $unit->setAction();
         $this->unitModel->save($unit);
+
         return redirect()->route('units')->with('success', 'Ação realizada com sucesso!');
+
     }
 
     public function destroy(int $id)
@@ -114,4 +116,6 @@ class UnitsController extends BaseController
         $this->unitModel->delete($unit->id);
         return redirect()->route('units')->with('success', 'Removido com sucesso!');
     }
+
+
 }

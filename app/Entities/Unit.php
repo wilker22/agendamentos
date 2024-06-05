@@ -6,4 +6,5 @@ use CodeIgniter\Entity\Entity;
 
 class Unit extends MyBaseEntity
 {
+
 }

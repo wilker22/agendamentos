@@ -24,7 +24,9 @@ class UnitService extends MyBaseService
         if (empty($units)) {
             return self::TEXT_FOR_NO_DATA;
         } else {
+
             $this->htmlTable->setHeading('Ações', 'Nome', 'Email', 'Telefone', 'Início', 'Fim', 'Status', 'Criado');
+
             foreach ($units as $unit) {
                 $this->htmlTable->addRow([
                     $this->renderBtnActions($unit),
@@ -72,6 +74,7 @@ class UnitService extends MyBaseService
                             </button>';
         $btnActions .= '<div class="dropdown-menu">';
         $btnActions .= anchor(route_to('units.edit', $unit->id), 'Editar', ['class' => 'dropdown-item']);
+
         $btnActions .= view_cell(
             library: 'ButtonsCell::action',
             params: [
@@ -88,6 +91,7 @@ class UnitService extends MyBaseService
                 'btn_class'     => 'dropdown-item py-2'
             ]
         );
+
 
         $btnActions .= '</div></div>';
 

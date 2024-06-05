@@ -72,9 +72,11 @@ class UnitModel extends Model
     protected $afterDelete    = [];
 
 
+
     protected function escapeData(array $data)
     {
         if (!isset($data['data'])) {
+
             return $data;
         }
 
