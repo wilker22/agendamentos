@@ -53,6 +53,7 @@ class MyBaseEntity extends Entity
 
     public function createdAt(): string
     {
+        
         return Time::parse($this->created_at)->format('d/m/Y H:i');
     }
 }

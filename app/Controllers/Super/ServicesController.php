@@ -23,12 +23,13 @@ class ServicesController extends BaseController
     public function index()
     {
         $data = [
-            'title' => 'Unidades',
-            'Services' => $this->serviceService->renderServices()
+            'title' => 'Serviços',
+            'services' => $this->serviceService->renderServices()
 
         ];
 
-        $Services = model(serviceModel::class)->findAll();
+        $services = model(serviceModel::class)->findAll();
+
 
         return view('Back/Services/index', $data);
     }
