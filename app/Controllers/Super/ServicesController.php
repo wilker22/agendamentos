@@ -29,10 +29,6 @@ class ServicesController extends BaseController
         ];
 
         $services = model(serviceModel::class)->findAll();
-<<<<<<< HEAD
-=======
-
->>>>>>> 1982a3a207141b190644c327b15f4468bdeebfd7
 
         return view('Back/Services/index', $data);
     }
@@ -41,8 +37,7 @@ class ServicesController extends BaseController
     {
         $data = [
             'title' => 'Criar Serviço',
-            'Service' => new Service(),
-
+            'service' => new Service(),
         ];
 
 
@@ -61,7 +56,7 @@ class ServicesController extends BaseController
                 ->with('errorsValidation', $this->serviceModel->errors());
         }
 
-        return redirect()->route('Services')->with('success', 'Unidade criada com sucesso!');
+        return redirect()->route('services')->with('success', 'Unidade criada com sucesso!');
     }
 
     public function edit(int $id)
@@ -70,7 +65,7 @@ class ServicesController extends BaseController
 
         $data = [
             'title' => 'Editar Unidade',
-            'Service' => $Service = $this->serviceModel->findOrFail($id),
+            'service' => $Service = $this->serviceModel->findOrFail($id),
 
         ];
 
@@ -96,7 +91,7 @@ class ServicesController extends BaseController
                 ->with('errorsValidation', $this->serviceModel->errors());
         }
 
-        return redirect()->route('Services')->with('success', 'Dados atualizados com sucesso!');
+        return redirect()->route('services')->with('success', 'Dados atualizados com sucesso!');
     }
 
 
@@ -107,7 +102,7 @@ class ServicesController extends BaseController
         $service->setAction();
         $this->serviceModel->save($service);
 
-        return redirect()->route('Services')->with('success', 'Ação realizada com sucesso!');
+        return redirect()->route('services')->with('success', 'Ação realizada com sucesso!');
     }
 
     public function destroy(int $id)
@@ -115,6 +110,6 @@ class ServicesController extends BaseController
         $this->checkMethod('delete');
         $service = $this->serviceModel->findOrFail($id);
         $this->serviceModel->delete($service->id);
-        return redirect()->route('Services')->with('success', 'Removido com sucesso!');
+        return redirect()->route('services')->with('success', 'Removido com sucesso!');
     }
 }

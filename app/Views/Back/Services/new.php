@@ -20,9 +20,9 @@
 
         </div>
         <div class="card-body">
-            <?php echo form_open(route_to('units.create')); ?>
+            <?php echo form_open(route_to('services.create')); ?>
 
-            <?php echo $this->include('Back/Units/_form'); ?>
+            <?php echo $this->include('Back/Services/_form'); ?>
 
             <?php echo form_close() ?>
         </div>

@@ -20,7 +20,7 @@
 
         </div>
         <div class="card-body">
-            <?php echo form_open(route_to('services.update', $unit->id), hidden: ['_method' => 'PUT']) ?>
+            <?php echo form_open(route_to('services.update', $service->id), hidden: ['_method' => 'PUT']) ?>
 
             <?php echo $this->include('Back/Services/_form'); ?>
 

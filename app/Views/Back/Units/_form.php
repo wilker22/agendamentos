@@ -49,7 +49,7 @@
 
     <div class="col-md-12 mb-3 mt-4">
         <div class="custom-control custom-checkbox">
-            <?php echo form_hidden('active', 0) ?>
+            <?php echo form_hidden('active', '0') ?>
             <input type="checkbox" id="active" value="1" name="active" class="custom-control-input" <?php echo $unit->active ? 'checked' : '' ?>>
             <label for="active" class="custom-control-label">Registro Ativo</label>
         </div>
