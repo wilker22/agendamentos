@@ -29,6 +29,7 @@ class UnitsController extends BaseController
         ];
 
         $units = model(UnitModel::class)->findAll();
+        
 
         return view('Back/Units/index', $data);
     }

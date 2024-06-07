@@ -29,6 +29,10 @@ class ServicesController extends BaseController
         ];
 
         $services = model(serviceModel::class)->findAll();
+<<<<<<< HEAD
+=======
+
+>>>>>>> 1982a3a207141b190644c327b15f4468bdeebfd7
 
         return view('Back/Services/index', $data);
     }
