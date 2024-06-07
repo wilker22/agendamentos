@@ -26,6 +26,7 @@ $routes->group('super', static function ($routes) {
 
         //rotas para units-services
         $routes->get('services/(:num)', [UnitsServicesController::class, 'services/$1'], ['as' => 'units.services']);
+        $routes->put('services/store/(:num)', [UnitsServicesController::class, 'store/$1'], ['as' => 'units.services.store']);
     });
 
     $routes->group('services', static function ($routes) {

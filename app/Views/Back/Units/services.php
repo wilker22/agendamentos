@@ -20,11 +20,15 @@
             <a href="<?= base_url(route_to('units')) ?>" class="btn btn-secondary float-right">Voltar</a>
         </div>
         <div class="card-body">
-            <?php form_open('units.services.store', $unit->id, hidden: ['_method' => 'PUT']) ?>
+            <?php echo form_open(route_to('units.services.store', $unit->id), hidden: ['_method' => 'PUT']) ?>
+
             <button type="submit" class="btn btn-sm btn-success">Salvar</button><br>
-            <button type="button" id="btnToogleAll" class="btn btn-sm btn-primary badge-primary mt-2 mb-1">Marcar Todos</button>
+
+            <button type="button" id="btnToogleAll" class="btn btn-sm btn-primary badge-primary mt-4 mb-4">Marcar Todos</button>
+
             <?php echo $servicesOptions ?>
-            <?php form_close() ?>
+
+            <?php echo form_close() ?>
         </div>
     </div>
 
@@ -35,5 +39,16 @@
 
 
 <?php echo $this->section('js') ?>
+
+<script>
+    document.getElementById('btnToogleAll').addEventListener('click', () => {
+
+        const services = document.getElementsByName('services[]');
+
+        services.forEach(element => {
+            element.checked = !element.checked;
+        });
+    });
+</script>
 
 <?php echo $this->endSection() ?>
