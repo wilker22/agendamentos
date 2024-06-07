@@ -65,7 +65,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
-                <a class="nav-link" href="<?php echo base_url(route_to('units')) ?>">
+                <a class="nav-link" href="<?php echo base_url(route_to('services')) ?>">
                     <i class="fas fa-fw fa-cogs"></i>
                     <span>Serviços</span></a>
             </li>

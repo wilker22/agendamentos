@@ -2,9 +2,9 @@
 
 namespace App\Libraries;
 
-use App\Entities\Unit;
+use App\Entities\Service;
 use App\Models\ServiceModel;
-use App\Models\UnitModel;
+
 
 class ServiceService extends MyBaseService
 {
@@ -33,7 +33,7 @@ class ServiceService extends MyBaseService
     }
 
 
-    private function renderBtnActions(Unit $service): string
+    private function renderBtnActions(Service $service): string
     {
 
         $btnActions  = '<div class="btn-group">';
@@ -45,12 +45,12 @@ class ServiceService extends MyBaseService
                                     Ações
                             </button>';
         $btnActions .= '<div class="dropdown-menu">';
-        $btnActions .= anchor(route_to('units.edit', $service->id), 'Editar', ['class' => 'dropdown-item']);
+        $btnActions .= anchor(route_to('services.edit', $service->id), 'Editar', ['class' => 'dropdown-item']);
 
         $btnActions .= view_cell(
             library: 'ButtonsCell::action',
             params: [
-                'route'         => route_to('units.action', $service->id),
+                'route'         => route_to('services.action', $service->id),
                 'text_action'   => $service->textToAction(),
                 'activated'     => $service->isActivated(),
                 'btn_class'     => 'dropdown-item py-2'
@@ -59,7 +59,7 @@ class ServiceService extends MyBaseService
         $btnActions .= view_cell(
             library: 'ButtonsCell::destroy',
             params: [
-                'route'         => route_to('units.destroy', $service->id),
+                'route'         => route_to('services.destroy', $service->id),
                 'btn_class'     => 'dropdown-item py-2'
             ]
         );

@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use App\Entities\Service;
-use App\Entities\Unit;
+
 use CodeIgniter\Exceptions\PageNotFoundException;
 use CodeIgniter\Model;
 
@@ -30,7 +30,7 @@ class ServiceModel extends MyBaseModel
 
     // Validation
     protected $validationRules      = [
-        'name' => 'required|max_length[100]|is_unique[units.name,id, {id}]',
+        'name' => 'required|max_length[100]|is_unique[services.name,id, {id}]',
     ];
 
     protected $validationMessages   = [
