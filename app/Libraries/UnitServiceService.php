@@ -24,7 +24,7 @@ class UnitServiceService extends MyBaseService
         foreach ($services as  $service) {
             $checked = in_array($service->id, $existingServicesIds ?? []) ? 'checked' : '';
             $checkbox = '<div class="custom-control custom-checkbox">';
-            $checkbox .= "<input type='checkbox' {$checked} name='services[]' values='{$service->id}' class='custom-control-input' id='service-{$service->id}'>";
+            $checkbox .= "<input type='checkbox' {$checked} name='services[]' value='{$service->id}' class='custom-control-input' id='service-{$service->id}'>";
             $checkbox .= "<label class='custom-control-label' for='service-{$service->id}'>{$service->name}</label>";
             $checkbox .= '</div>';
 
@@ -34,5 +34,27 @@ class UnitServiceService extends MyBaseService
         $ul .= '</ul>';
 
         return $ul;
+    }
+
+
+    public function renderUnitServices(?array $existingServicesId = null): string
+    {
+        if ($existingServicesId === null || empty($existingServicesId)) {
+            return self::TEXT_FOR_NO_DATA;
+        }
+
+        $services = model(ServiceModel::class)->where('id', $existingServicesId)->orderBy('name', 'ASC')->findAll();
+
+        if (empty($services)) {
+            return self::TEXT_FOR_NO_DATA;
+        }
+
+        $list = [];
+
+        foreach ($services as $service) {
+            $list[] =  "{$service->name} - {$service->status}";
+        }
+
+        return ul($list);
     }
 }

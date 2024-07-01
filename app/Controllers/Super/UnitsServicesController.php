@@ -42,8 +42,6 @@ class UnitsServicesController extends BaseController
         $postServices = $this->request->getPost('services');
         $unit->services = $postServices ?? null;
 
-        dd($unit);
-
         if (!$unit->hasChanged()) {
             return redirect()->back()->with('info', 'Não há dados para atualizar');
         }

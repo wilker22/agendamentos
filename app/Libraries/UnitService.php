@@ -4,6 +4,7 @@ namespace App\Libraries;
 
 use App\Entities\Unit;
 use App\Models\UnitModel;
+use CodeIgniter\Config\Factories;
 
 class UnitService extends MyBaseService
 {
@@ -23,25 +24,25 @@ class UnitService extends MyBaseService
 
         if (empty($units)) {
             return self::TEXT_FOR_NO_DATA;
-        } else {
-
-            $this->htmlTable->setHeading('Ações', 'Nome', 'Email', 'Telefone', 'Início', 'Fim', 'Status', 'Criado');
-
-            foreach ($units as $unit) {
-                $this->htmlTable->addRow([
-                    $this->renderBtnActions($unit),
-                    $unit->name,
-                    $unit->email,
-                    $unit->phone,
-                    $unit->starttime,
-                    $unit->endtime,
-                    $unit->status(),
-                    $unit->createdAt()
-                ]);
-            }
-
-            return $this->htmlTable->generate();
         }
+
+        $this->htmlTable->setHeading('Ações', 'Nome', 'Email', 'Telefone', 'Serviços', 'Status', 'Criado');
+
+        $unitServiceService = Factories::class(UnitServiceService::class);
+
+        foreach ($units as $unit) {
+            $this->htmlTable->addRow([
+                $this->renderBtnActions($unit),
+                $unit->name,
+                $unit->email,
+                $unit->phone,
+                $unitServiceService->renderUnitServices($unit->services),
+                $unit->status(),
+                $unit->createdAt()
+            ]);
+        }
+
+        return $this->htmlTable->generate();
     }
 
     public function renderTimesInterval(?string $serviceTime = null): string
