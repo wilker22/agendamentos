@@ -65,7 +65,7 @@ class UnitService extends MyBaseService
     private function renderBtnActions(Unit $unit): string
     {
 
-        $btnActions  = '<div class="btn-group">';
+        $btnActions  = '<div class="btn-group dropup">';
         $btnActions .= '<button type="button" 
                                 class="btn btn-outline-primary btn-sm dropdown-toggle" 
                                 data-toggle="dropdown" 

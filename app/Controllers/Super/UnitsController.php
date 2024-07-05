@@ -29,7 +29,7 @@ class UnitsController extends BaseController
         ];
 
         $units = model(UnitModel::class)->findAll();
-        
+
 
         return view('Back/Units/index', $data);
     }
@@ -107,7 +107,6 @@ class UnitsController extends BaseController
         $this->unitModel->save($unit);
 
         return redirect()->route('units')->with('success', 'Ação realizada com sucesso!');
-
     }
 
     public function destroy(int $id)
@@ -117,6 +116,4 @@ class UnitsController extends BaseController
         $this->unitModel->delete($unit->id);
         return redirect()->route('units')->with('success', 'Removido com sucesso!');
     }
-
-
 }

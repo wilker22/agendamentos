@@ -72,7 +72,7 @@ class UnitModel extends MyBaseModel
         }
 
         foreach ($this->allowedFields as $attribute) {
-            if (isset($data['data']['attribute'])) {
+            if (isset($data['data'][$attribute])) {
                 if ($attribute === 'services') {
                     continue;
                 }
