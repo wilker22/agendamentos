@@ -1,5 +1,7 @@
 <?php
 
+use App\Controllers\SchedulesController;
+use App\Controllers\WebController;
 use App\Controllers\Super\HomeController;
 use App\Controllers\Super\ServicesController;
 use App\Controllers\Super\UnitsController;
@@ -9,7 +11,13 @@ use CodeIgniter\Router\RouteCollection;
 /**
  * @var RouteCollection $routes
  */
-$routes->get('/', 'Home::index', ['as' => 'home']);
+$routes->get('/', [WebController::class, 'index'], ['as' => 'home']);
+
+//rotas de agendamentos
+$routes->group('schedules', static function ($routes) {
+    $routes->get('/', [SchedulesController::class, 'index'], ['as' => 'schedules.new']);
+});
+
 
 $routes->group('super', static function ($routes) {
     //home
