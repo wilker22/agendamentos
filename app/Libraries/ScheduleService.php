@@ -5,6 +5,8 @@ namespace App\Libraries;
 use App\Entities\Unit;
 use App\Models\ServiceModel;
 use App\Models\UnitModel;
+use Exception;
+use InvalidArgumentException;
 
 class ScheduleService
 {
@@ -35,5 +37,28 @@ class ScheduleService
         }
 
         return $radios;
+    }
+
+
+    public function renderUnitServices(int $unitId): string
+    {
+        //VALIDADAR A EXISTENCIA DA UNIDADE ATIVA COM SERVIÇÕES
+        $unit = model(UnitModel::class)->where(['active' => 1, 'services !=' => null, 'services !=' => ''])->findOrFail($unitId);
+
+        //busca serviços da unidade
+        $services = model(ServiceModel::class)->whereIn('id', $unit->services)->where('active', 1)->orderBy('name', 'ASC')->findAll();
+
+        if (empty($services)) {
+            throw new InvalidArgumentException("Os serviços associados à Unidae {$unit->name} nao estão ativos ou não existem");
+        }
+
+        $options = [];
+        $options[''] = '--- Escolha ---';
+
+        foreach ($services as $service) {
+            $options[$service->id] = $service->name;
+        }
+
+        return form_dropdown(data: 'service', options: $options, selected: [], extra: ['id' => 'service->id', 'class' => 'form-select']);
     }
 }

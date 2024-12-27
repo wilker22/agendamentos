@@ -16,6 +16,7 @@ $routes->get('/', [WebController::class, 'index'], ['as' => 'home']);
 //rotas de agendamentos
 $routes->group('schedules', static function ($routes) {
     $routes->get('/', [SchedulesController::class, 'index'], ['as' => 'schedules.new']);
+    $routes->get('services', [SchedulesController::class, 'unitServices'], ['as' => 'get.unit.services']); ///recuperar via API
 });
 
 

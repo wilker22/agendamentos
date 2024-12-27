@@ -26,4 +26,29 @@ class SchedulesController extends BaseController
 
         return view('Front/Schedules/index', $data);
     }
+
+    /**
+     * recupera os serviçs da uniade nforma no request
+     * 
+     * @return ResponseInterface
+     * 
+     */
+    public function unitServices()
+    {
+        try {
+            $this->checkMethod('ajax');
+
+            $unitId = (int) $this->request->getGet('unit_id');
+
+            $services = $this->scheduleService->renderUnitServices(unitId: $unitId);
+
+            return $this->response->setJSON([
+                'services' => $services
+            ]);
+        } catch (\Throwable $th) {
+            log_message('error', '[ERROR] {exception}', ['exception' => $th]);
+
+            $this->response->setStatusCode(500);
+        }
+    }
 }
