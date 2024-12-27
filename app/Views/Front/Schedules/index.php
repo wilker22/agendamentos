@@ -38,6 +38,15 @@
 
                     </div>
                 </div>
+
+
+                <div id="boxMonths" class="col-md-12 d-none mb-4">
+                    <p class="lead">
+                        Escolha o Mês:
+                        <?php echo $months; ?>
+                    </p>
+
+                </div>
             </div>
         </div>
         <!-- preview da escolha -->
@@ -64,6 +73,7 @@
     const boxErrors = document.getElementById('boxErrors');
     const mainBoxServices = document.getElementById('mainBoxServices');
     const boxServices = document.getElementById('boxServices');
+    const boxMonths = document.getElementById('boxMonths');
     const chosenUnitText = document.getElementById('chosenUnitText');
     const chosenServiceText = document.getElementById('chosenServiceText');
     const chosenMonthText = document.getElementById('chosenMonthText');
@@ -131,7 +141,10 @@
             serviceId = elementService.value ?? null;
             let serviceName = serviceId !== '' ? elementService.options[event.target.selectedIndex].text : null;
 
+            console.log('Serviço escolhido?', serviceId !== '');
             chosenServiceText.innerText = serviceName;
+
+            serviceId !== '' ? boxMonths.classList.remove('d-none') : boxMonths.classList.add('d-none');
         });
     };
 </script>
