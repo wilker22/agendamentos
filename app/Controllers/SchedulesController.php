@@ -58,4 +58,22 @@ class SchedulesController extends BaseController
             $this->response->setStatusCode(500);
         }
     }
+
+
+    public function getCalendar()
+    {
+        try {
+            $this->checkMethod('ajax');
+
+            $month = (int) $this->request->getGet('month');
+
+            return $this->response->setJSON([
+                'calendar' => $this->calendarService->generate(month: $month)
+            ]);
+        } catch (\Throwable $th) {
+            log_message('error', '[ERROR] {exception}', ['exception' => $th]);
+
+            $this->response->setStatusCode(500);
+        }
+    }
 }

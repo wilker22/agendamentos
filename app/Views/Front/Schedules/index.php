@@ -5,7 +5,51 @@
 <?php echo $this->endSection() ?>
 
 <?php echo $this->section('css') ?>
+<style>
+    /** para deixar o botão do dia um pouco menor */
+    .btn-calendar-day {
+        max-width: 36px !important;
+        min-width: 36px !important;
+        line-height: 0px !important;
+        padding: 10% !important;
+        height: 30px !important;
+        display: table-cell !important;
+        vertical-align: middle !important;
+    }
 
+    .btn-calendar-day-chosen {
+        color: #fff !important;
+        background-color: #28a745 !important;
+        border-color: #28a745 !important;
+    }
+
+    .btn-hour {
+        margin-bottom: 10px !important;
+        max-width: 55px !important;
+        min-width: 55px !important;
+        padding-left: 8px !important;
+        line-height: 0px !important;
+        height: 30px !important;
+    }
+
+    .btn-hour-chosen {
+        color: #fff !important;
+        background-color: #28a745 !important;
+        border-color: #28a745 !important;
+    }
+
+
+    /** para centralizar o conteúdo dentro da célula do calendário */
+    td {
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    /** para aparecer os options dos dropdowns */
+    .wizard .content .form-control {
+        padding: .375rem 0.75rem !important;
+    }
+</style>
 <?php echo $this->endSection() ?>
 
 
@@ -70,6 +114,7 @@
 
 <script>
     const URL_GET_SERVICES = '<?php echo route_to('get.unit.services'); ?>';
+    const URL_GET_CALENDAR = '<?php echo route_to('get.calendar'); ?>';
     const boxErrors = document.getElementById('boxErrors');
     const mainBoxServices = document.getElementById('mainBoxServices');
     const boxServices = document.getElementById('boxServices');
@@ -147,6 +192,59 @@
             serviceId !== '' ? boxMonths.classList.remove('d-none') : boxMonths.classList.add('d-none');
         });
     };
+
+    //mês
+    document.getElementById('month').addEventListener('change', (event) => {
+        chosenMonthText.innerText = '';
+
+        /** @todo criar essa funçao
+         * resetBoxCalendar = '';
+         */
+        const month = event.target.value;
+        if (!month) {
+            /** @todo criar função
+             * resetMonth */
+
+            //resetMonthDataVariables();
+            //resetBoxCalendar();
+
+            return;
+        }
+
+        //mês valido escolhido...
+
+        //atribuimos a variavel de escopo global o valor do mês escolhido
+        chosenMonth = event.target.value;
+        chosenMonthText.innerText = event.target.options[event.target.selectedIndex].text;
+        getCalendar(chosenMonth);
+
+    });
+
+    const getCalendar = async () => {
+    //limpar erros
+    boxErrors.innerHTML = '';
+    chosenDayText.innerText = '';
+    chosenHourText.innerText = '';
+
+    let url = URL_GET_CALENDAR + '?' + setParameters({
+
+        month: month
+    });
+
+    const response = await fetch(url, {
+        method: 'get',
+        headers: setHeadersRequest()
+    });
+
+    if (!response.ok) {
+        boxErrors.innerHTML = showErrorMessage('Não foi possível recuperar o Calendário!');
+        throw new Error(`HTTP error! Status: ${response.status}`);
+        return;
+    }
+
+    const data = await response.json();
+
+    });
 </script>
 
 <?php echo $this->endSection() ?>
